@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Base64 Encoder &amp; Decoder — DevTools Hub</title>
+  <meta name="description" content="Encode and decode UTF-8 text or local files as Base64 in your browser. Supports URL-safe Base64, data URIs, and Unicode without uploading content.">
+  <link rel="canonical" href="https://devtools-hub.com/tools/base64-encoder.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Base64 Encoder &amp; Decoder — DevTools Hub">
+  <meta property="og:description" content="Convert Unicode text and local files to and from Base64 entirely in your browser.">
+  <meta property="og:url" content="https://devtools-hub.com/tools/base64-encoder.html">
+  <meta property="og:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Base64 Encoder &amp; Decoder">
+  <meta name="twitter:description" content="Private, UTF-8-safe Base64 conversion in your browser.">
+  <meta name="twitter:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <link rel="icon" type="image/svg+xml" href="../assets/img/icon.svg">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/tools.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Base64 Encoder and Decoder","url":"https://devtools-hub.com/tools/base64-encoder.html","applicationCategory":"DeveloperApplication","operatingSystem":"All","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"UTF-8-safe Base64 text and file conversion performed in the browser."}
+  </script>
+  <!-- Replace ca-pub-XXXXXXXXXXXXXXXX only after AdSense approval; no ad script is active. -->
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="../index.html" class="brand" aria-label="DevTools Hub homepage"><img class="brand-icon" src="../assets/img/icon.svg" alt=""><span>DevTools Hub</span></a>
+      <nav id="primary-nav" aria-label="Primary Navigation"><ul class="nav-links">
+        <li class="dropdown"><button class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▼</span></button><ul class="dropdown-menu">
+          <li><a href="json-formatter.html">JSON Formatter</a></li><li><a href="html-minifier.html">HTML Minifier</a></li><li><a href="css-beautifier.html">CSS Beautifier</a></li><li><a href="base64-encoder.html" aria-current="page">Base64 Encoder</a></li><li><a href="url-encoder.html">URL Encoder</a></li><li><a href="uuid-generator.html">UUID Generator</a></li>
+        </ul></li>
+        <li><a href="../blog/index.html">Engineering Blog</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li>
+      </ul></nav>
+      <div class="header-actions"><button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle dark/light theme"></button><button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Open mobile navigation menu" aria-expanded="false">☰</button></div>
+    </div>
+  </header>
+  <main id="main-content" class="container">
+    <nav class="breadcrumbs" aria-label="Breadcrumbs"><a href="../index.html">Home</a><span class="separator">/</span><span>Tools</span><span class="separator">/</span><span class="current">Base64 Encoder &amp; Decoder</span></nav>
+    <div class="privacy-badge">🔒 100% client-side: your text and files stay in this browser</div>
+    <h1>Base64 Encoder &amp; Decoder</h1>
+    <p style="color:var(--text-muted);max-width:850px;margin-bottom:1.5rem">Convert UTF-8 text to Base64 and back, or create a data URI from a file selected locally. No upload endpoint is involved; file reading and conversion run in this page.</p>
+    <section class="tool-layout" aria-label="Base64 conversion workspace">
+      <div class="tool-controls">
+        <div class="control-group"><label for="b64-mode" class="control-label">Operation:</label><select id="b64-mode" class="select-input"><option value="encode" selected>Encode</option><option value="decode">Decode</option></select><label class="checkbox-label"><input type="checkbox" id="b64-urlsafe"><span>URL-safe alphabet</span></label></div>
+        <div class="control-group"><button id="b64-run-btn" class="btn btn-primary btn-sm">Encode to Base64</button></div>
+      </div>
+      <div class="editor-panes">
+        <div class="pane drop-zone" id="b64-drop-zone">
+          <div class="drop-overlay">Drop a text file here to load it locally</div>
+          <div class="pane-header"><span class="pane-title">Input</span><div class="pane-actions"><button id="b64-example-btn" class="btn btn-outline btn-sm">Sample</button><button id="b64-paste-btn" class="btn btn-outline btn-sm">Paste</button><button id="b64-clear-btn" class="btn btn-outline btn-sm">Clear</button></div></div>
+          <div class="pane-body"><textarea id="b64-input" class="editor-textarea" placeholder="Enter text or Base64..." spellcheck="false" aria-label="Base64 input"></textarea></div>
+          <div class="pane-footer"><span id="b64-status" class="stat-pill" aria-live="polite">Ready</span><span class="shortcut-badge"><kbd>Ctrl</kbd>+<kbd>Enter</kbd> to run</span></div>
+        </div>
+        <div class="pane">
+          <div class="pane-header"><span class="pane-title">Output</span><div class="pane-actions"><button id="b64-swap-btn" class="btn btn-outline btn-sm">Swap</button><button id="b64-copy-btn" class="btn btn-primary btn-sm">Copy</button><button id="b64-download-btn" class="btn btn-secondary btn-sm">Download</button></div></div>
+          <div class="pane-body"><textarea id="b64-output" class="editor-textarea" readonly placeholder="Converted output appears here..." spellcheck="false" aria-label="Base64 output"></textarea></div>
+          <div class="pane-footer"><span id="b64-stats" class="stat-pill">0 characters</span><span>UTF-8 text</span></div>
+        </div>
+      </div>
+      <div class="uuid-config-panel">
+        <div><label class="control-label" for="b64-file-input">Convert a local file to a data URI</label><p>Selecting a file reads it in this tab only. The result is a text data URI; large files create correspondingly large strings.</p><input id="b64-file-input" type="file" aria-label="Choose a local file"></div>
+        <div><p><strong>Optional drop target</strong></p><div id="b64-file-drop" class="file-upload-box" tabindex="0">Choose a file above to generate its data URI locally.</div><div id="b64-image-preview" style="display:none"><img id="b64-preview-img" class="data-uri-preview" alt="Preview of the selected image"></div></div>
+      </div>
+    </section>
+    <article class="editorial-content">
+      <h2>Base64 in practice: a representation, not a cipher</h2>
+      <p>Base64 is a way to represent arbitrary bytes with a small text alphabet. It is defined by a family of Internet standards, including RFC 4648, and is useful when a protocol or text format needs to carry binary data. It does not conceal the content. Anyone who can read a Base64 value can decode it, so never use encoding as a substitute for encryption, access control, or secret storage. This page runs its text conversion locally, but the result is still ordinary, reversible data.</p>
+      <h3>How the conversion works</h3>
+      <p>The standard alphabet has 64 symbols: uppercase and lowercase English letters, digits, plus, and slash. The encoder reads the input as bytes, groups them in sets of three (24 bits), then maps each 6-bit piece to one alphabet symbol. When the last group has fewer than three bytes, equals signs indicate padding. This mapping causes encoded output to be larger than its source: a long input grows by roughly one third, with a little additional overhead for data-URI headers. This predictable expansion matters when placing encoded resources in HTML, CSS, JSON, or database columns.</p>
+      <p>Text is not bytes until a character encoding is chosen. A string such as <code>café</code> or <code>🧭</code> cannot safely be passed character-by-character to old browser Base64 functions, which expect byte-sized Latin-1 values. This tool first uses UTF-8 bytes and then encodes those bytes. The decode path reverses that order. As a result, accented text, emoji, and non-Latin writing systems survive a round trip instead of producing an exception or corrupted characters.</p>
+      <h3>Choosing standard or URL-safe Base64</h3>
+      <p>Standard Base64 uses <code>+</code> and <code>/</code>, and may end with <code>=</code> padding. These characters are legal in many contexts but can be inconvenient in URL paths, filenames, or loosely specified token fields. The URL-safe variant substitutes <code>-</code> and <code>_</code>; this implementation also omits trailing padding when encoding. Use the variant expected by the receiving protocol, not simply whichever looks tidier. Decoding accepts standard or URL-safe alphabets and restores omitted padding where possible.</p>
+      <h3>Using the text editor</h3>
+      <ol><li>Select Encode or Decode. The editor updates as you type; the action button can also run the conversion explicitly.</li><li>Enable URL-safe alphabet when your system expects the alternate alphabet.</li><li>Use Sample to see a Unicode example, Paste to read clipboard text after browser permission, or drag a text file into the input pane. These convenience features still operate in the page.</li><li>Review the status line before copying or downloading. Invalid input produces an error instead of silently reporting a successful conversion.</li></ol>
+      <p>Decoding Base64 produces text here. If the bytes represent a binary file rather than UTF-8 text, the visible result may contain replacement characters or be unreadable. For binary files, use a file-aware decoder and preserve the raw bytes rather than interpreting them as text. The tool’s file selection is one-way: it reads a local file as a data URI, which is useful for small images and inline examples, but it does not reconstruct arbitrary files from decoded text.</p>
+      <h3>Data URIs and responsible file handling</h3>
+      <p>A data URI combines a media type, optional parameters, a Base64 marker, and encoded bytes—for example <code>data:image/png;base64,...</code>. Browsers can use such a URI as an image source or resource value. It is convenient for small icons, prototypes, and self-contained examples, but it embeds the complete bytes in the document. That makes HTML and CSS harder to cache independently, increases document size, and can complicate security policies. Larger or frequently reused assets generally belong in ordinary files served with the right content type.</p>
+      <p>Choosing a local file does not send its contents to DevTools Hub. The browser’s File API reads it and JavaScript forms the data URI in memory. Treat the output with the same care as the original: it may contain private content, can be copied into shell history or source control accidentally, and is easy to decode. Close the page when finished if you do not want the output visible on screen, and avoid pasting secrets into shared or recorded sessions.</p>
+      <h3>Limitations and troubleshooting</h3>
+      <p>Whitespace in an input Base64 string is ignored, making copied values with line wrapping usable. Illegal characters and malformed sequences are reported. If an external service rejects a value, confirm whether it requires padding, URL-safe symbols, a data-URI prefix, or a particular character encoding. Base64 alone does not provide integrity checks: a syntactically valid string can still represent the wrong bytes. Where correctness matters, compare a known checksum or validate the decoded object using its actual format parser.</p>
+      <p>After conversion, Copy writes the result to your clipboard when the browser grants permission; Download saves a plain text output file. Clipboard access may require a secure context or a direct user gesture, so use the browser’s normal paste shortcut if the button cannot read the clipboard. All core Base64 operations work without a remote conversion service. Read the <a href="../blog/base64-encoding-explained.html">Base64 guide</a> for more background, or return to the <a href="../index.html#tools">complete tool list</a>.</p>
+    </article>
+  </main>
+  <footer class="site-footer"><div class="container"><div class="footer-grid">
+    <div class="footer-column"><h4>DevTools Hub</h4><p>Free, browser-based utilities with no account required. Text and selected files are processed on this device.</p></div>
+    <div class="footer-column"><h4>Tools</h4><ul><li><a href="json-formatter.html">JSON Formatter</a></li><li><a href="html-minifier.html">HTML Minifier</a></li><li><a href="css-beautifier.html">CSS Beautifier</a></li><li><a href="url-encoder.html">URL Encoder</a></li><li><a href="uuid-generator.html">UUID Generator</a></li></ul></div>
+    <div class="footer-column"><h4>Learn</h4><ul><li><a href="../blog/index.html">Engineering Blog</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul></div>
+    <div class="footer-column"><h4>Policies</h4><ul><li><a href="../privacy-policy.html">Privacy</a></li><li><a href="../cookie-policy.html">Cookies</a></li><li><a href="../terms-of-service.html">Terms</a></li><li><a href="../disclaimer.html">Disclaimer</a></li></ul></div>
+  </div><div class="footer-bottom"><span>&copy; 2026 DevTools Hub</span><span>Local browser processing; no payload upload endpoint.</span></div></div></footer>
+  <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Privacy and preference consent"><div class="cookie-content"><div class="cookie-text"><strong>Privacy choices:</strong> Core tools do not upload your input. Optional local storage remembers your consent and, if accepted, your theme preference. There are no analytics or advertising cookies configured. See the <a href="../privacy-policy.html">Privacy Policy</a> and <a href="../cookie-policy.html">Cookie Policy</a>.</div><div class="cookie-actions"><button id="cookie-accept-btn" class="btn btn-primary btn-sm">Allow preference storage</button><button id="cookie-reject-btn" class="btn btn-outline btn-sm">Reject optional storage</button></div></div></div>
+  <script src="../assets/js/core-tools.js"></script><script src="../assets/js/app.js"></script><script src="../assets/js/base64-tool.js"></script>
+</body>
+</html>

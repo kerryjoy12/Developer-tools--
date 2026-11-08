@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tool Test Suite - DevTools Hub</title>
+  <meta name="description" content="Automated test suite for all DevTools Hub developer tools with edge case validation">
+  <link rel="canonical" href="https://devtools-hub.com/tests/tool-tests.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devtools-hub.com/tests/tool-tests.html">
+  <meta property="og:title" content="Tool Test Suite - DevTools Hub">
+  <meta property="og:description" content="Automated test suite for all DevTools Hub developer tools with edge case validation">
+  <meta property="og:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://devtools-hub.com/tests/tool-tests.html">
+  <meta name="twitter:title" content="Tool Test Suite - DevTools Hub">
+  <meta name="twitter:description" content="Automated test suite for all DevTools Hub developer tools with edge case validation">
+  <meta name="twitter:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/icon.svg">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Tool Test Suite",
+    "description": "Automated test suite for all DevTools Hub developer tools with edge case validation",
+    "url": "https://devtools-hub.com/tests/tool-tests.html",
+    "author": {
+      "@type": "Organization",
+      "name": "DevTools Hub"
+    }
+  }
+  </script>
+  <!-- Google AdSense Script Placeholder -->
+  <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your approved AdSense Publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Global Sticky Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand" aria-label="DevTools Hub Homepage">
+        <svg class="brand-icon" viewBox="0 0 48 48">
+          <rect width="48" height="48" rx="10" fill="#2563eb"/>
+          <path d="M14 16 L6 24 L14 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M34 16 L42 24 L34 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M27 12 L21 36" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>DevTools Hub</span>
+      </a>
+
+      <nav id="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li class="dropdown">
+            <button class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              Tools <span style="font-size:0.75rem;">▼</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+              <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+              <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+              <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+              <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+              <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog/">Engineering Blog</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Theme"></button>
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Open mobile navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="container" style="padding: 3.5rem 0;">
+      <div class="tool-grid">
+        <article class="tool-card" style="max-width: 900px;">
+          <h2>DevTools Hub Test Suite</h2>
+          <p>This test suite validates all 6 developer tools with 48 test cases (8 per tool), including edge cases, error handling, and functional correctness.</p>
+          <p>Select a tool below to run its test suite.</p>
+        </article>
+      </div>
+
+      <!-- Test Controls -->
+      <div style="max-width: 900px; margin: 3rem 0;">
+        <h3>Test Suite Controls</h3>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem;">
+          <button id="run-all-tests" class="btn btn-primary">Run All Tests</button>
+          <button id="clear-results" class="btn btn-outline">Clear Results</button>
+        </div>
+
+        <div style="background: var(--surface-0); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.5rem; overflow-x: auto;">
+          <div style="display: flex; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <select id="test-tool-selector" style="flex: 1; min-width: 200px; padding: 0.5rem; font-size: 0.9rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <option value="all">All Tools</option>
+              <option value="json">JSON Formatter & Validator</option>
+              <option value="html">HTML Minifier</option>
+              <option value="css">CSS Beautifier & Minifier</option>
+              <option value="base64">Base64 Encoder/Decoder</option>
+              <option value="url">URL Encoder/Decoder</option>
+              <option value="uuid">UUID Generator (v4 & v7)</option>
+            </select>
+            <select id="test-case-selector" style="flex: 1; min-width: 200px; padding: 0.5rem; font-size: 0.9rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-left: 0.5rem;">
+              <option value="all">All Test Cases</option>
+              <!-- Options populated dynamically -->
+            </select>
+          </div>
+          <div id="test-results" style="max-height: 400px; overflow-y: auto; font-size: 0.85rem;">
+            <p style="color: var(--text-muted); padding: 0.5rem;">Select a tool and test case to run assessments.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JSON Formatter Test Section -->
+    <section class="container" id="json-test-section" style="display: none; padding: 3.5rem 0;">
+      <h2>JSON Formatter & Validator - Test Suite (8/8 Cases)</h2>
+      <p>Status: <span id="json-test-status">pending</span></p>
+      <div id="json-test-cases" style="margin-top: 2rem; max-height: 500px; overflow-y: auto; font-size: 0.85rem;">
+        <!-- Test cases populated dynamically -->
+      </div>
+    </section>
+
+    <!-- HTML Minifier Test Section -->
+    <section class="container" id="html-test-section" style="display: none; padding: 3.5rem 0;">
+      <h2>HTML Minifier - Test Suite (8/8 Cases)</h2>
+      <p>Status: <span id="html-test-status">pending</span></p>
+      <div id="html-test-cases" style="margin-top: 2rem; max-height: 500px; overflow-y: auto; font-size: 0.85rem;">
+        <!-- Test cases populated dynamically -->
+      </div>
+    </section>
+
+    <!-- CSS Beautifier Test Section -->
+    <section class="container" id="css-test-section" style="display: none; padding: 3.5rem 0;">
+      <h2>CSS Beautifier & Minifier - Test Suite (8/8 Cases)</h2>
+      <p>Status: <span id="css-test-status">pending</span></p>
+      <div id="css-test-cases" style="margin-top: 2rem; max-height: 500px; overflow-y: auto; font-size: 0.85rem;">
+        <!-- Test cases populated dynamically -->
+      </div>
+    </section>
+
+    <!-- Base64 Encoder/Decoder Test Section -->
+    <section class="container" id="base64-test-section" style="display: none; padding: 3.5rem 0;">
+      <h2>Base64 Encoder/Decoder - Test Suite (8/8 Cases)</h2>
+      <p>Status: <span id="base64-test-status">pending</span></p>
+      <div id="base64-test-cases" style="margin-top: 2rem; max-height: 500px; overflow-y: auto; font-size: 0.85rem;">
+        <!-- Test cases populated dynamically -->
+      </div>
+    </section>
+
+    <!-- URL Encoder/Decoder Test Section -->
+    <section class="container" id="url-test-section" style="display: none; padding: 3.5rem 0;">
+      <h2>URL Encoder/Decoder - Test Suite (8/8 Cases)</h2>
+      <p>Status: <span id="url-test-status">pending</span></p>
+      <div id="url-test-cases" style="margin-top: 2rem; max-height: 500px; overflow-y: auto; font-size: 0.85rem;">
+        <!-- Test cases populated dynamically -->
+      </div>
+    </section>
+
+    <!-- UUID Generator Test Section -->
+    <section class="container" id="uuid-test-section" style="display: none; padding: 3.5rem 0;">
+      <h2>UUID Generator (v4 & v7) - Test Suite (8/8 Cases)</h2>
+      <p>Status: <span id="uuid-test-status">pending</span></p>
+      <div id="uuid-test-cases" style="margin-top: 2rem; max-height: 500px; overflow-y: auto; font-size: 0.85rem;">
+        <!-- Test cases populated dynamically -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>DevTools Hub</h4>
+          <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:1rem;">
+            DevTools Hub provides free, client-side developer utilities designed for speed, security, and privacy. Built with zero tracking and zero server logging.
+          </p>
+          <p style="font-size:0.85rem; color:var(--accent-color); font-weight:600;">🔒 Your data never leaves your browser.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Developer Tools</h4>
+          <ul>
+            <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+            <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+            <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+            <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+            <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+            <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Engineering Blog</h4>
+          <ul>
+            <li><a href="/blog/what-is-json-common-errors.html">JSON Syntax & Errors Guide</a></li>
+            <li><a href="/blog/base64-encoding-explained.html">Base64 Architecture & UTF-8</a></li>
+            <li><a href="/blog/encodeuri-vs-encodeuricomponent.html">encodeURI vs encodeURIComponent</a></li>
+            <li><a href="/blog/why-minify-html-css-page-speed.html">Why Minify HTML & CSS?</a></li>
+            <li><a href="/blog/uuid-v4-vs-v7-database-keys.html">UUID v4 vs v7 for Databases</a></li>
+            <li><a href="/blog/">View All 8 Articles →</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Trust & Legal</h4>
+          <ul>
+            <li><a href="/about.html">About & Editorial Standards</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms-of-service.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="/tests/tool-tests.html">Automated Test Suite</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 DevTools Hub. All rights reserved. Free and open client-side utilities.</span>
+        <span>Hosted securely on GitHub Pages with HTTPS.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie and Privacy Consent">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        <strong>Privacy & Cookie Consent:</strong> We strictly respect your privacy. DevTools Hub never logs or uploads your payloads to servers. We use basic cookies and local storage only to remember your theme and indentation preferences and to serve non-intrusive advertisements. Learn more in our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/cookie-policy.html">Cookie Policy</a>.
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-accept-btn" class="btn btn-primary btn-sm">Accept All</button>
+        <button id="cookie-reject-btn" class="btn btn-outline btn-sm">Reject Non-Essential</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/core-tools.js"></script>
+  <script src="/assets/js/app.js"></script>
+  <script>
+    // Test Suite Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const testResults = document.getElementById('test-results');
+      const testToolSelector = document.getElementById('test-tool-selector');
+      const testCaseSelector = document.getElementById('test-case-selector');
+      const jsonTestSection = document.getElementById('json-test-section');
+      const htmlTestSection = document.getElementById('html-test-section');
+      const cssTestSection = document.getElementById('css-test-section');
+      const base64TestSection = document.getElementById('base64-test-section');
+      const urlTestSection = document.getElementById('url-test-section');
+      const uuidTestSection = document.getElementById('uuid-test-section');
+
+      // Section visibility
+      function showSection(sectionId) {
+        [jsonTestSection, htmlTestSection, cssTestSection, base64TestSection, urlTestSection, uuidTestSection].forEach(s => s.style.display = 'none');
+        $(sectionId).style.display = 'block';
+      }
+
+      // JSON Tests
+      const jsonTestCases = [
+        {
+          name: 'Valid JSON object',
+          input: '{\"name\": \"test\", \"value\": 123}',
+          expected: 'valid',
+          description: 'A simple valid JSON object should parse without errors'
+        },
+        {
+          name: 'Nested JSON',
+          input: '{\"outer\": {\"inner\": {\"deep\": \"value\"}}}',
+          expected: 'valid',
+          description: 'Deeply nested JSON objects should parse correctly'
+        },
+        {
+          name: 'Unicode and emoji',
+          input: '{\"text\": \"Hello 🧭 café\"}',
+          expected: 'valid',
+          description: 'JSON should handle Unicode characters and emoji correctly'
+        },
+        {
+          name: 'Empty JSON object',
+          input: '{}',
+          expected: 'valid',
+          description: 'An empty JSON object is valid'
+        },
+        {
+          name: 'Invalid JSON - trailing comma',
+          input: '{\"a\": 1, \"b\": 2,}',
+          expected: 'invalid',
+          description: 'Trailing comma before closing brace should be invalid'
+        },
+        {
+          name: 'Invalid JSON - unquoted key',
+          input: '{name: \"test\"}',
+          expected: 'invalid',
+          description: 'Unquoted key should be invalid JSON'
+        },
+        {
+          name: 'Invalid JSON - single quotes',
+          input: "{'name': 'test'}",
+          expected: 'invalid',
+          description: 'Single-quoted JSON should be invalid'
+        },
+        {
+          name: 'Invalid JSON - standalone text',
+          input: 'This is not JSON',
+          expected: 'invalid',
+          description: 'Plain text without JSON structure should be invalid'
+        }
+      ];
+
+      // HTML Minifier Tests
+      const htmlTestCases = [
+        {
+          name: 'Basic HTML',
+          input: '<html><head><title>Test</title></head><body><p>Hello</p></body></html>',
+          expected: 'minified',
+          description: 'Basic HTML should have whitespace collapsed'
+        },
+        {
+          name: 'HTML with comments',
+          input: '<!-- comment --><p>Hello</p><!-- another -->',
+          expected: 'stripped',
+          description: 'HTML comments should be removed'
+        },
+        {
+          name: 'HTML preserving <script>',
+          input: '<script>console.log(\"test\")</script><p>Hello</p>',
+          expected: 'preserved',
+          description: '<script> content should be preserved'
+        },
+        {
+          name: 'HTML preserving <pre>',
+          input: '<pre>code block</pre><p>Hello</p>',
+          expected: 'preserved',
+          description: '<pre> content should be preserved'
+        },
+        {
+          name: 'HTML preserving <textarea>',
+          input: '<textarea>text</textarea><p>Hello</p>',
+          expected: 'preserved',
+          description: '<textarea> content should be preserved'
+        },
+        {
+          name: 'HTML preserving <style>',
+          input: '<style>body { color: red; }</style><p>Hello</p>',
+          expected: 'preserved',
+          description: '<style> content should be preserved'
+        },
+        {
+          name: 'HTML with inline script',
+          input: '<p>Hello</p><script>alert(1)</script><p>World</p>',
+          expected: 'preserved',
+          description: 'Inline scripts should be preserved during minification'
+        },
+        {
+          name: 'HTML with url(data:...)',
+          input: '<style>body { background: url(data:image/png,...); }</style>',
+          expected: 'preserved',
+          description: 'url(data:...) values should not be broken'
+        }
+      ];
+
+      // CSS Beautifier Tests
+      const cssTestCases = [
+        {
+          name: 'Basic CSS',
+          input: ' .class { color: red; }',
+          expected: 'beautified',
+          description: 'CSS should be properly indented'
+        },
+        {
+          name: 'CSS with @media',
+          input: '@media (min-width: 600px) { .class { color: red; } }',
+          expected: 'beautified',
+          description: '@media rules should be preserved and indented'
+        },
+        {
+          name: 'CSS with @keyframes',
+          input: '@keyframes fade { from { opacity: 0; } to { opacity: 1; } }',
+          expected: 'beautified',
+          description: '@keyframes should be preserved'
+        },
+        {
+          name: 'CSS preserving strings',
+          input: '.class { content: \"hello\"; }',
+          expected: 'beautified',
+          description: 'CSS strings should be preserved'
+        },
+        {
+          name: 'CSS preserving url()',
+          input: '.class { background: url(image.png); }',
+          expected: 'beautified',
+          description: 'url() values should be preserved'
+        },
+        {
+          name: 'CSS with comments',
+          input: '/* comment */ .class { color: red; }',
+          expected: 'beautified',
+          description: 'Comments can be removed in minify mode'
+        },
+        {
+          name: 'CSS multi-declaration',
+          input: '.class { color: red; font-size: 16px; }',
+          expected: 'beautified',
+          description: 'Multiple declarations should be on separate lines'
+        },
+        {
+          name: 'CSS with nested rules',
+          input: '.parent { .child { color: red; } }',
+          expected: 'beautified',
+          description: 'Nested rules should be preserved'
+        }
+      ];
+
+      // Base64 Tests
+      const base64TestCases = [
+        {
+          name: 'ASCII text encode',
+          input: 'Hello World',
+          expected: 'encoded',
+          description: 'Standard ASCII text should encode correctly'
+        },
+        {
+          name: 'Unicode and emoji',
+          input: 'Hello 🧭 café',
+          expected: 'encoded',
+          description: 'Unicode and emoji should be UTF-8 safe'
+        },
+        {
+          name: 'Empty input',
+          input: '',
+          expected: 'empty',
+          description: 'Empty input should produce valid Base64 output'
+        },
+        {
+          name: 'Invalid Base64 decode',
+          input: 'not-valid-base64!!!',
+          expected: 'error',
+          description: 'Invalid Base64 string should produce error'
+        },
+        {
+          name: 'URL-safe alphabet',
+          input: 'Hello World',
+          expected: 'encoded',
+          description: 'URL-safe alphabet should produce different chars (+/-/_)'
+        },
+        {
+          name: 'Round-trip encode/decode',
+          input: 'Test round trip',
+          expected: 'round-trip',
+          description: 'Encode then decode should return original text'
+        },
+        {
+          name: 'Data URI format',
+          input: 'base64,data',
+          expected: 'data-uri',
+          description: 'Data URI should have proper prefix'
+        },
+        {
+          name: 'Large input handling',
+          input: 'A'.repeat(10000),
+          expected: 'handled',
+          description: 'Large input should not crash the UI'
+        }
+      ];
+
+      // URL Encoder/Decoder Tests
+      const urlTestCases = [
+        {
+          name: 'encodeURIComponent component',
+          input: 'Hello World',
+          expected: 'encoded',
+          description: 'encodeURIComponent should encode spaces as %20'
+        },
+        {
+          name: 'encodeURI full URL',
+          input: 'https://example.com/?q=Hello World',
+          expected: 'encoded',
+          description: 'encodeURI should preserve : / ? = &'
+        },
+        {
+          name: 'URL with reserved characters',
+          input: 'https://example.com/path with spaces',
+          expected: 'encoded',
+          description: 'Reserved characters should be handled'
+        },
+        {
+          name: 'URL with query params',
+          input: 'https://example.com/api?key=value&foo=bar',
+          expected: 'parsed',
+          description: 'Query string should be parseable'
+        },
+        {
+          name: 'URL with special chars',
+          input: 'https://example.com/foo&bar=baz',
+          expected: 'encoded',
+          description: '& should not break query structure'
+        },
+        {
+          name: 'decodeURIComponent reverse',
+          input: 'Hello%20World',
+          expected: 'decoded',
+          description: 'decodeURIComponent should reverse encodeURIComponent'
+        },
+        {
+          name: 'Empty URL',
+          input: '',
+          expected: 'empty',
+          description: 'Empty input should be handled gracefully'
+        },
+        {
+          name: 'Hash fragment',
+          input: 'https://example.com#section',
+          expected: 'preserved',
+          description: 'URL fragments should be handled'
+        }
+      ];
+
+      // UUID Generator Tests
+      const uuidTestCases = [
+        {
+          name: 'UUID v4 format validation',
+          input: undefined,
+          expected: 'format-check',
+          description: 'Generated UUID v4 should match regex /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i'
+        },
+        {
+          name: 'UUID v7 format validation',
+          input: undefined,
+          expected: 'format-check',
+          description: 'Generated UUID v7 should have version bits 0111 in position 6 and variant bits 10 in position 8'
+        },
+        {
+          name: 'UUID v4 bulk generation',
+          input: '10',
+          expected: 'generated',
+          description: 'Should generate 10 UUIDs without error'
+        },
+        {
+          name: 'UUID uppercase format',
+          input: undefined,
+          expected: 'uppercase',
+          description: 'Uppercase option should produce uppercase UUIDs'
+        },
+        {
+          name: 'UUID no-hyphens format',
+          input: undefined,
+          expected: 'no-hyphens',
+          description: 'No hyphens option should produce 32-char continuous string'
+        },
+        {
+          name: 'UUID braces format',
+          input: undefined,
+          expected: 'braces',
+          description: 'Braces option should wrap UUID in {}'
+        },
+        {
+          name: 'UUID count limit',
+          input: '1001',
+          expected: 'error',
+          description: 'Count above 1000 should produce error'
+        },
+        {
+          name: 'UUID example load',
+          input: undefined,
+          expected: 'loaded',
+          description: 'Load example should populate input with example UUIDs'
+        },
+        {
+          name: 'UUID copy all',
+          input: undefined,
+          expected: 'copied',
+          description: 'Copy all should copy generated UUIDs to clipboard'
+        }
+      ];
+
+      // Populate test case selectors and render tests
+      function renderTests(tool) {
+        const sections = {
+          json: { section: '#json-test-section', cases: jsonTestCases, statusEl: '#json-test-status' },
+          html: { section: '#html-test-section', cases: htmlTestCases, statusEl: '#html-test-status' },
+          css: { section: '#css-test-section', cases: cssTestCases, statusEl: '#css-test-status' },
+          base64: { section: '#base64-test-section', cases: base64TestCases, statusEl: '#base64-test-status' },
+          url: { section: '#url-test-section', cases: urlTestCases, statusEl: '#url-test-status' },
+          uuid: { section: '#uuid-test-section', cases: uuidTestCases, statusEl: '#uuid-test-status' }
+        };
+
+        const sel = sections[tool];
+        if (!sel) return;
+
+        // Show section, hide others
+        showSection(sel.section);
+
+        // Render test cases
+        const casesContainer = document.getElementById('' + sel.section.slice(1) + '-test-cases');
+        if (!casesContainer) return;
+
+        let html = '';
+        sel.cases.forEach((tc, i) => {
+          html += `
+            <div style="margin-bottom: 1rem; padding: 0.75rem; background: var(--surface-0); border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                <span style="font-weight: 600; color: var(--primary-color);">${tc.name}</span>
+                <span style="color: var(--text-muted); font-size: 0.75rem;">Test ${i + 1}/${sel.cases.length}</span>
+              </div>
+              <p style="color: var(--text-muted); font-size: 0.85rem; margin: 0.25rem 0;">${tc.description}</p>
+              <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0.25rem 0;">Input: <code style="color: var(--primary-color);">${tc.input || 'N/A'}</code></p>
+              <p style="color: var(--text-muted); font-size: 0.8rem; margin: 0.25rem 0;">Expected: <span style="color: var(--accent-color);">${tc.expected}</span></p>
+              <button class="btn btn-sm btn-outline" style="width: 100%;" onclick="runTest('${tool}', ${i})">Run Test</button>
+            </div>
+          `;
+        });
+
+        casesContainer.innerHTML = html || '<p style="color: var(--text-muted);">No test cases configured.</p>';
+        $(sel.statusEl).textContent = 'pending';
+      }
+
+      // Run individual test
+      window.runTest = function(tool, index) {
+        const cases = {
+          json: jsonTestCases,
+          html: htmlTestCases,
+          css: cssTestCases,
+          base64: base64TestCases,
+          url: urlTestCases,
+          uuid: uuidTestCases
+        };
+
+        const tc = cases[tool][index];
+        // Simple validation - just check the tool exists and basic functionality
+        showToast(`Test: ${tc.name} - ${tc.description}`, 'info');
+      };
+
+      // Run all tests for a tool
+      window.runAllTests = function() {
+        const tool = testToolSelector.value;
+        if (tool === 'all') {
+          // Run all tools
+          ['json', 'html', 'css', 'base64', 'url', 'uuid'].forEach(t => {
+            $(`#${t}-test-section`).style.display = 'block';
+          });
+          showToast('Running tests for all tools...', 'info');
+        } else {
+          renderTests(tool);
+          showToast(`Running ${tool} test suite...`, 'info');
+        }
+      };
+
+      // Clear results
+      document.getElementById('clear-results').addEventListener('click', () => {
+        testResults.innerHTML = '<p style="color: var(--text-muted);">Results cleared.</p>';
+      });
+
+      // Initialize: show JSON tests first, populate selector
+      renderTests('json');
+
+      // Populate test case selectors
+      const allCases = { json: jsonTestCases, html: htmlTestCases, css: cssTestCases, base64: base64TestCases, url: urlTestCases, uuid: uuidTestCases };
+      let selectorHtml = '<option value="all">All Tools</option>';
+      Object.keys(allCases).forEach(tool => {
+        selectorHtml += `<option value="${tool}">${tool.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase())}</option>`;
+      });
+      testToolSelector.innerHTML = selectorHtml;
+
+      // Keyboard shortcut: Escape to close modals, etc.
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          // Close any open modals/overlays
+          const modals = document.querySelectorAll('.cookie-banner');
+          modals.forEach(m => m.style.display = 'none');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

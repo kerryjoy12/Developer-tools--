@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Minifier - DevTools Hub</title>
+  <meta name="description" content="Minify HTML online. Removes comments, collapses whitespace, preserves <pre>/<textarea>/<script>/<style> content, shows original size, minified size, and % saved.">
+  <link rel="canonical" href="https://devtools-hub.com/tools/html-minifier.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devtools-hub.com/tools/html-minifier.html">
+  <meta property="og:title" content="HTML Minifier - DevTools Hub">
+  <meta property="og:description" content="Minify HTML documents online. 100% client-side, no data upload.">
+  <meta property="og:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://devtools-hub.com/tools/html-minifier.html">
+  <meta name="twitter:title" content="HTML Minifier - DevTools Hub">
+  <meta name="twitter:description" content="Minify HTML documents online. 100% client-side, no data upload.">
+  <meta name="twitter:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/icon.svg">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- Google AdSense Script Placeholder -->
+  <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your approved AdSense Publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "HTML Minifier",
+    "description": "Minify HTML documents online. Removes comments, collapses whitespace, preserves preformatted content. 100% client-side, no data upload.",
+    "url": "https://devtools-hub.com/tools/html-minifier.html",
+    "appController": "https://devtools-hub.com/tools/html-minifier.html",
+    "operatingSystem": ["Browser"],
+    "category": "Developer Tools",
+    "author": {
+      "@type": "Organization",
+      "name": "DevTools Hub"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Global Sticky Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand" aria-label="DevTools Hub Homepage">
+        <svg class="brand-icon" viewBox="0 0 48 48">
+          <rect width="48" height="48" rx="10" fill="#2563eb"/>
+          <path d="M14 16 L6 24 L14 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M34 16 L42 24 L34 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M27 12 L21 36" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>DevTools Hub</span>
+      </a>
+
+      <nav id="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li class="dropdown">
+            <button class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              Tools <span style="font-size:0.75rem;">▼</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+              <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+              <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+              <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+              <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+              <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog/">Engineering Blog</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Theme"></button>
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Open mobile navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero-section" style="padding: 4rem 0 3rem; background: var(--surface-1); border-bottom: 1px solid var(--border-color); text-align: center;">
+      <div class="container">
+        <div class="privacy-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          100% Client-Side Privacy: Your data never leaves your browser
+        </div>
+        <h1 style="font-size: 2.75rem; max-width: 800px; margin: 0 auto 1rem; letter-spacing: -0.02em;">
+          HTML Minifier
+        </h1>
+        <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 2rem;">
+          Compress HTML documents by stripping comments and redundant whitespace while strictly preserving preformatted code inside <code><pre></code>, <code><textarea></code>, and <code><script></code> tags.
+        </p>
+
+        <!-- Control Buttons -->
+        <div style="max-width: 500px; margin: 0 auto 2rem; gap: 0.75rem; justify-content: center;">
+          <button id="html-copy-btn" class="btn btn-outline" style="min-width: 140px;">Copy Output</button>
+          <button id="html-clear-btn" class="btn btn-outline" style="min-width: 140px;">Clear</button>
+          <button id="html-swap-btn" class="btn btn-outline" style="min-width: 140px;">Swap</button>
+          <button id="html-download-btn" class="btn btn-primary" style="min-width: 140px;">Download .html</button>
+          <button id="html-example-btn" class="btn btn-secondary" style="min-width: 140px;">Load Example</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 3.5rem 0;">
+      <div class="tool-grid">
+        <article class="tool-card" data-keywords="html minifier compress speed optimization cleanup">
+          <div class="tool-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3>HTML Minifier</h3>
+          <p>Compress production HTML documents by stripping comments and redundant whitespace while strictly preserving preformatted code inside <pre>, <textarea>, and <script> tags.</p>
+          <a href="#" class="btn btn-primary" style="margin-top: 0.5rem;">Open HTML Tool</a>
+        </article>
+      </div>
+
+      <!-- HTML Tool UI -->
+      <article class="tool-card" style="margin-top: 2.5rem;">
+        <div class="tool-card-icon" style="margin-bottom: 1rem;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+
+        <div class="code-block" id="html-input-container" style="flex: 1; margin-bottom: 1rem;">
+          <textarea id="html-input" rows="10" cols="80" 
+                    style="width: 100%; height: 100%; padding: 0.75rem; font-family: var(--font-mono); font-size: 0.95rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical;"
+                    placeholder="Paste HTML here or load an example..."><!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Minified HTML Example</title>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+    <p>This is a paragraph with <strong>bold</strong> text.</p>
+    <pre>
+function hello() {
+  console.log("Hello, world!");
+}
+    </pre>
+    <script>
+      console.log("test");
+    </script>
+    <style>
+      body { color: black; }
+    </style>
+  </body>
+</html></textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Options:</label>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <input type="checkbox" id="html-remove-comments" checked style="accent-color: var(--primary-color); margin-right: 0.5rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Remove comments</label>
+            <input type="checkbox" id="html-collapse-whitespace" checked style="accent-color: var(--primary-color); margin-right: 0.5rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Collapse whitespace</label>
+            <input type="checkbox" id="html-remove-optional-tags" style="accent-color: var(--primary-color); margin-right: 0.5rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Remove optional tags</label>
+            <input type="checkbox" id="html-remove-quotes" style="accent-color: var(--primary-color); margin-right: 0.5rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Remove quotes</label>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <button id="html-minify-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Minify HTML</button>
+          <button id="html-format-btn" class="btn btn-outline" style="flex: 1; min-width: 120px;">Format HTML</button>
+        </div>
+
+        <div id="html-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Output:</span>
+            <span id="html-output-status">Ready</span>
+          </div>
+          <pre><code id="html-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color);"></code></pre>
+        </div>
+
+        <div id="html-error-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem; border-left: 3px solid var(--error-color);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Error:</span>
+            <span id="html-error-status">Fix the input above.</span>
+          </div>
+          <pre><code id="html-error" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--error-color);"></code></pre>
+        </div>
+      </article>
+
+      <!-- Usage Guide & Step-by-Step -->
+      <section class="editorial-content" style="margin-top: 3rem; max-width: 900px;">
+        <h2>How to Use the HTML Minifier</h2>
+
+        <h3>Step 1: Paste Your HTML</h3>
+        <p>Enter your HTML markup in the input textarea. You can paste entire web pages, fragments, or code snippets. The minifier is designed to handle real-world HTML, including complex structures with conditional comments, inline scripts, and styles.</p>
+
+        <h3>Step 2: Configure Minification Options</h3>
+        <p>Select which minification steps to apply:</p>
+        <ul>
+          <li><strong>Remove comments:</strong> Strips HTML comments (<!-- ... -->) from the output. Conditional Internet Explorer comments like <!--[if IE]>&hellip;<![endif]--> are preserved to avoid breaking legacy site support.</li>
+          <li><strong>Collapse whitespace:</strong> Reduces multiple spaces, tabs, and newlines to single spaces where appropriate. Whitespace inside <code><pre></code>, <code><textarea></code>, <code><script></code>, and <code><style></code> blocks is always preserved regardless of this setting.</li>
+          <li><strong>Remove optional tags:</strong> Omits closing tags that the HTML5 spec allows to be omitted (e.g., <code></li></code>, <code></p></code>, <code></dt></code>, <code></dd></code>). Use with caution in strict XHTML or XML workflows.</li>
+          <li><strong>Remove quotes:</strong> Strips double or single quotes from attribute values when the value contains only safe alphanumeric characters, dots, underscores, hyphens, colons, and forward slashes (useful for streamlining generated markup).</li>
+        </ul>
+
+        <h3>Step 3: Minify or Format</h3>
+        <p>Click <strong>"Minify HTML"</strong> to produce the compressed output with selected options enabled. Click <strong>"Format HTML"</strong> to expand the markup into a readable, indented structure (currently a no-op; the tool focuses on minification). The output updates live as you type (debounced for large inputs).</p>
+
+        <h3>Step 4: Inspect Size Savings</h3>
+        <p>The tool calculates and displays the byte savings from minification:</p>
+        <ul>
+          <li><strong>Original size:</strong> Bytes of the input (measured via UTF-8 TextEncoder)</li>
+          <li><strong>Minified size:</strong> Bytes of the output</li>
+          <li><strong>% saved:</strong> Percentage reduction in file size</li>
+        </ul>
+        <p>This helps you quantify the impact on page load performance, especially for heavy HTML documents.</p>
+
+        <h3>Step 5: Copy, Download, or Load Example</h3>
+        <ul>
+          <li><strong>Copy Output:</strong> Copies the minified HTML to your clipboard. The keyboard shortcut <strong>Ctrl + Enter</strong> (or Cmd+Enter on macOS) triggers minification.</li>
+          <li><strong>Download .html:</strong> Saves the output as an <code>.html</code> file named <code>minified-html.html</code>. The file uses UTF-8 encoding with a proper DOCTYPE declaration prepended if missing.</li>
+          <li><strong>Load Example:</strong> Populates the input with a realistic HTML5 document containing head, body, headings, paragraphs, inline styles, a <code><pre></code> block, a <code><script></code> block, and HTML comments. This demonstrates that the minifier preserves content inside the protected tags.</li>
+        </ul>
+
+        <h3>Under the Hood</h3>
+        <p>The minifier implements a rule-based pipeline that operates entirely in the browser:</p>
+        <ol>
+          <li>First, <code><pre></code>, <code><textarea></code>, <code><script></code>, and <code><style></code> blocks are stashed into a preservation map before any rules run.</li>
+          <li>HTML comments are removed using a regex that respects the comment closing sequence.</li>
+          <li>Whitespace is collapsed: spaces between tags are removed (<code>><space<</code><code>></code> becomes <code>><</code><code>></code>), and redundant internal whitespace is reduced.</li>
+          <li>Preserved blocks are injected back into the output at their original positions.</li>
+          <li>The final byte savings are computed by comparing the original and minified byte lengths using the Web API <code>TextEncoder</code> for accurate UTF-8 measurement.</li>
+        </ol>
+        <p>All processing happens entirely in your browser—no HTML is ever uploaded to a server.</p>
+
+        <h3>Common Errors and Fixes</h3>
+        <dl>
+          <dt><strong>No output produced</strong></dt>
+          <dd>The input may be empty or contain only whitespace. Ensure you have pasted valid HTML markup.</dd>
+
+          <dt><strong>Protected content appears broken</strong></dt>
+          <dd>If <code><pre></code>, <code><textarea></code>, <code><script></code>, or <code><style></code> content is being modified, double-check that the "preserve" concept is understood: the tool specifically preserves these blocks, but if the input has nesting issues, the output may seem off. The example input demonstrates proper preservation.</dd>
+
+          <dt><strong>Unexpected size reduction percentage</strong></dt>
+          <dd>The % saved depends entirely on the input's existing whitespace and comment density. Minimal HTML (already compact) will show low % saved, while heavily formatted documents with lots of comments and whitespace can see 60%+ reduction.</dd>
+        </dl>
+
+        <h3>Use Cases</h3>
+        <ul>
+          <li><strong>Production deployment:</strong> Minify HTML templates and full pages before uploading to your web server to reduce bandwidth and improve Time to First Byte.</li>
+          <li><strong>Email template optimization:</strong> Strip comments and collapse whitespace in HTML emails for cleaner rendering across clients.</li>
+          <li><strong>Learning and teaching:</strong> Use the example input to demonstrate how HTML minification works and which parts of markup are safe to compress.</li>
+          <li><strong>CI/CD pipeline:</strong> Integrate this client-side tool into build scripts for quick inline minification without node dependencies.</li>
+        </ul>
+
+        <h3>5-Question FAQ</h3>
+        <dl class="faq-item">
+          <dt class="faq-question">Do you upload my HTML to a server?</dt>
+          <dd class="faq-answer"><p>No. DevTools Hub executes 100% client-side inside your browser JavaScript runtime. No text, markup, or files are ever sent across the network or stored in databases. You can verify this by opening your browser's Developer Tools Network tab—zero outbound requests are made when processing data.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Will minification break my <code><script></code> or <code><style></code> tags?</dt>
+          <dd class="faq-answer"><p>No. The minifier specifically preserves content inside <code><script></code>, <code><style></code>, <code><pre></code>, and <code><textarea></code> tags. These blocks are stashed before any minification rules run and restored exactly as-is in the output.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Can I minify HTML5 with incomplete tags?</dt>
+          <dd class="faq-answer"><p>The tool handles standard HTML5 markup. If tags are unbalanced or malformed, the output may not be perfectly structured, but the minifier will still strip comments and collapse whitespace where possible. Always validate your HTML after minification in a browser.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">What's the typical % savings I can expect?</dt>
+          <dd class="faq-answer"><p>It varies widely. A well-formatted document with generous indentation and comments might see 60-80% reduction. Already-minified HTML with little extra whitespace might only see 10-20% reduction. The tool displays the exact % saved for your specific input.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Is minified HTML still valid?</dt>
+          <dd class="faq-answer"><p>Minification preserves the semantic structure and valid markup of the original. However, removing optional tags or quotes may change how some renderers interpret the document. For critical production use, validate the minified output with an HTML validator.</p></dd>
+        </dl>
+      </section>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>DevTools Hub</h4>
+          <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:1rem;">
+            DevTools Hub provides free, client-side developer utilities designed for speed, security, and privacy. Built with zero tracking and zero server logging.
+          </p>
+          <p style="font-size:0.85rem; color:var(--accent-color); font-weight:600;">🔒 Your data never leaves your browser.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Developer Tools</h4>
+          <ul>
+            <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+            <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+            <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+            <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+            <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+            <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Engineering Blog</h4>
+          <ul>
+            <li><a href="/blog/what-is-json-common-errors.html">JSON Syntax & Errors Guide</a></li>
+            <li><a href="/blog/base64-encoding-explained.html">Base64 Architecture & UTF-8</a></li>
+            <li><a href="/blog/encodeuri-vs-encodeuricomponent.html">encodeURI vs encodeURIComponent</a></li>
+            <li><a href="/blog/why-minify-html-css-page-speed.html">Why Minify HTML & CSS?</a></li>
+            <li><a href="/blog/uuid-v4-vs-v7-database-keys.html">UUID v4 vs v7 for Databases</a></li>
+            <li><a href="/blog/">View All 8 Articles →</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Trust & Legal</h4>
+          <ul>
+            <li><a href="/about.html">About & Editorial Standards</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms-of-service.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="/tests/tool-tests.html">Automated Test Suite</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 DevTools Hub. All rights reserved. Free and open client-side utilities.</span>
+        <span>Hosted securely on GitHub Pages with HTTPS.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie and Privacy Consent">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        <strong>Privacy & Cookie Consent:</strong> We strictly respect your privacy. DevTools Hub never logs or uploads your payloads to servers. We use basic cookies and local storage only to remember your theme and indentation preferences and to serve non-intrusive advertisements. Learn more in our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/cookie-policy.html">Cookie Policy</a>.
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-accept-btn" class="btn btn-primary btn-sm">Accept All</button>
+        <button id="cookie-reject-btn" class="btn btn-outline btn-sm">Reject Non-Essential</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/core-tools.js"></script>
+  <script src="/assets/js/app.js"></script>
+  <script>
+    // HTML Minifier Specific Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const htmlInput = document.getElementById('html-input');
+      const htmlMinifyBtn = document.getElementById('html-minify-btn');
+      const htmlFormatBtn = document.getElementById('html-format-btn');
+      const htmlOutput = document.getElementById('html-output');
+      const htmlLiveOutput = document.getElementById('html-live-output');
+      const htmlErrorOutput = document.getElementById('html-error-output');
+      const htmlOutputStatus = document.getElementById('html-output-status');
+      const htmlErrorStatus = document.getElementById('html-error-status');
+      const htmlCopyBtn = document.getElementById('html-copy-btn');
+      const htmlClearBtn = document.getElementById('html-clear-btn');
+      const htmlSwapBtn = document.getElementById('html-swap-btn');
+      const htmlDownloadBtn = document.getElementById('html-download-btn');
+      const htmlExampleBtn = document.getElementById('html-example-btn');
+      const htmlRemoveComments = document.getElementById('html-remove-comments');
+      const htmlCollapseWhitespace = document.getElementById('html-collapse-whitespace');
+      const htmlRemoveOptionalTags = document.getElementById('html-remove-optional-tags');
+      const htmlRemoveQuotes = document.getElementById('html-remove-quotes');
+
+      // Example HTML for demonstration
+      const exampleHtml = `<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Minified HTML Example</title>
+  </head>
+  <body>
+    <h1>Hello, World!</h1>
+    <p>This is a paragraph with <strong>bold</strong> text.</p>
+    <!-- This is a comment -->
+    <pre>
+function hello() {
+  console.log("Hello, world!");
+}
+</pre>
+    <script>
+      console.log("test");
+    </script>
+    <style>
+      body { color: black; }
+    </style>
+  </body>
+</html>`;
+
+      // Minify function using DevToolsCore.html
+      function minifyHTML() {
+        const input = htmlInput.value.trim();
+
+        if (!input) {
+          showError('Input is empty. Paste HTML to minify.');
+          return;
+        }
+
+        try {
+          const options = {
+            removeComments: htmlRemoveComments.checked,
+            collapseWhitespace: htmlCollapseWhitespace.checked,
+            removeOptionalTags: htmlRemoveOptionalTags.checked,
+            removeQuotes: htmlRemoveQuotes.checked
+          };
+
+          const result = DevToolsCore.html.minify(input, options);
+          const savings = DevToolsCore.html.calculateSavings(input, result);
+
+          // Update savings display
+          htmlOutputStatus.textContent = `${savings.percentSaved}% saved (${savings.savedBytes} bytes)`;
+
+          showOutput(result);
+        } catch (err) {
+          showError('Minification error: ' + err.message);
+        }
+      }
+
+      // Format function (expands HTML for readability)
+      function formatHTML() {
+        const input = htmlInput.value.trim();
+        // For now, format just adds basic indentation
+        // In a full implementation, this would use a HTML parser/printer
+        if (!input) {
+          showError('Input is empty. Paste HTML to format.');
+          return;
+        }
+        // Simple formatting: just show the input as-is since we focus on minification
+        showOutput(input);
+        htmlOutputStatus.textContent = 'Displayed as-is (focus on minification)';
+      }
+
+      // Show output in live panel
+      function showOutput(text) {
+        htmlOutput.textContent = text;
+        htmlLiveOutput.style.display = 'block';
+        htmlErrorOutput.style.display = 'none';
+      }
+
+      // Show error in error panel
+      function showError(message) {
+        htmlError.textContent = message;
+        htmlErrorOutput.style.display = 'block';
+        htmlLiveOutput.style.display = 'none';
+        htmlOutputStatus.textContent = 'Error';
+      }
+
+      // Copy to clipboard
+      async function copyOutput() {
+        const output = htmlOutput.textContent || htmlError.textContent || '';
+        if (!output) {
+          showToast('Nothing to copy.', 'error');
+          return;
+        }
+        await DevToolsApp.copyText(output);
+      }
+
+      // Clear input and output
+      function clearOutput() {
+        htmlInput.value = '';
+        htmlLiveOutput.style.display = 'none';
+        htmlErrorOutput.style.display = 'none';
+        htmlOutputStatus.textContent = 'Ready';
+        htmlErrorStatus.textContent = 'Fix the input above.';
+      }
+
+      // Swap input and output roles
+      function swapInputOutput() {
+        const inputVal = htmlInput.value;
+        htmlInput.value = htmlOutput.textContent || '';
+        showOutput(inputVal ? inputVal : '');
+      }
+
+      // Download output as .html file
+      function downloadOutput() {
+        const output = htmlOutput.textContent || '';
+        if (!output) {
+          showToast('No output to download. Minify HTML first.', 'error');
+          return;
+        }
+        // Prepend DOCTYPE if not present
+        const htmlContent = output.startsWith('<!DOCTYPE') ? output : `<!DOCTYPE html>\n${output}`;
+        DevToolsApp.downloadFile(htmlContent, 'minified-html.html', 'text/html;charset=utf-8');
+      }
+
+      // Load example HTML
+      function loadExample() {
+        htmlInput.value = exampleHtml;
+        htmlInput.focus();
+        showToast('Example HTML loaded', 'success');
+      }
+
+      // Event listeners
+      htmlMinifyBtn.addEventListener('click', minifyHTML);
+      htmlFormatBtn.addEventListener('click', formatHTML);
+      htmlCopyBtn.addEventListener('click', copyOutput);
+      htmlClearBtn.addEventListener('click', clearOutput);
+      htmlSwapBtn.addEventListener('click', swapInputOutput);
+      htmlDownloadBtn.addEventListener('click', downloadOutput);
+      htmlExampleBtn.addEventListener('click', loadExample);
+
+      // Live minify on type (debounced)
+      let minifyTimeout;
+      htmlInput.addEventListener('input', () => {
+        clearTimeout(minifyTimeout);
+        minifyTimeout = setTimeout(minifyHTML, 300);
+      });
+
+      // Keyboard shortcut: Ctrl+Enter to minify
+      htmlInput.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          minifyHTML();
+        }
+      });
+
+      // Initialize: load example on first visit
+      if (!localStorage.getItem('html-example-loaded')) {
+        loadExample();
+        localStorage.setItem('html-example-loaded', 'true');
+      }
+    });
+  </script>
+</body>
+</html>

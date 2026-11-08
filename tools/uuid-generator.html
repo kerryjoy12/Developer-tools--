@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UUID Generator - DevTools Hub</title>
+  <meta name="description" content="Generate UUID v4 and v7 online. Crypto-secure random identifiers, bulk generate up to 1,000, format options (uppercase, lowercase, with/without hyphens, braces). 100% client-side, no data upload.">
+  <link rel="canonical" href="https://devtools-hub.com/tools/uuid-generator.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devtools-hub.com/tools/uuid-generator.html">
+  <meta property="og:title" content="UUID Generator - DevTools Hub">
+  <meta property="og:description" content="Generate UUID v4 and v7 online. Crypto-secure random identifiers, bulk generate up to 1,000, format options. 100% client-side, no data upload.">
+  <meta property="og:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://devtools-hub.com/tools/uuid-generator.html">
+  <meta name="twitter:title" content="UUID Generator - DevTools Hub">
+  <meta name="twitter:description" content="Generate UUID v4 and v7 online. Crypto-secure random identifiers, bulk generate up to 1,000, format options. 100% client-side, no data upload.">
+  <meta name="twitter:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/icon.svg">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- Google AdSense Script Placeholder -->
+  <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your approved AdSense Publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "UUID Generator",
+    "description": "Generate UUID v4 and v7 online. Crypto-secure random identifiers, bulk generate up to 1,000, format options (uppercase, lowercase, with/without hyphens, braces). 100% client-side, no data upload.",
+    "url": "https://devtools-hub.com/tools/uuid-generator.html",
+    "appController": "https://devtools-hub.com/tools/uuid-generator.html",
+    "operatingSystem": ["Browser"],
+    "category": "Developer Tools",
+    "author": {
+      "@type": "Organization",
+      "name": "DevTools Hub"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Global Sticky Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand" aria-label="DevTools Hub Homepage">
+        <svg class="brand-icon" viewBox="0 0 48 48">
+          <rect width="48" height="48" rx="10" fill="#2563eb"/>
+          <path d="M14 16 L6 24 L14 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M34 16 L42 24 L34 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M27 12 L21 36" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>DevTools Hub</span>
+      </a>
+
+      <nav id="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li class="dropdown">
+            <button class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              Tools <span style="font-size:0.75rem;">▼</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+              <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+              <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+              <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+              <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+              <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog/">Engineering Blog</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Theme"></button>
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Open mobile navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero-section" style="padding: 4rem 0 3rem; background: var(--surface-1); border-bottom: 1px solid var(--border-color); text-align: center;">
+      <div class="container">
+        <div class="privacy-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          100% Client-Side Privacy: Your data never leaves your browser
+        </div>
+        <h1 style="font-size: 2.75rem; max-width: 800px; margin: 0 auto 1rem; letter-spacing: -0.02em;">
+          UUID Generator (v4 & v7)
+        </h1>
+        <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 2rem;">
+          Generate cryptographically secure random UUID v4 identifiers or time-ordered RFC 9562 UUID v7 database primary keys. Bulk generate up to 1,000 unique UUIDs with custom formatting.
+        </p>
+
+        <!-- Control Buttons -->
+        <div style="max-width: 500px; margin: 0 auto 2rem; gap: 0.75rem; justify-content: center;">
+          <button id="uuid-copy-btn" class="btn btn-outline" style="min-width: 140px;">Copy All</button>
+          <button id="uuid-clear-btn" class="btn btn-outline" style="min-width: 140px;">Clear</button>
+          <button id="uuid-swap-btn" class="btn btn-outline" style="min-width: 140px;">Swap</button>
+          <button id="uuid-download-btn" class="btn btn-primary" style="min-width: 140px;">Download .txt</button>
+          <button id="uuid-example-btn" class="btn btn-secondary" style="min-width: 140px;">Load Example</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 3.5rem 0;">
+      <div class="tool-grid">
+        <article class="tool-card" data-keywords="uuid guid generator v4 v7 rfc 9562 bulk database keys">
+          <div class="tool-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+          </div>
+          <h3>UUID Generator (v4 & v7)</h3>
+          <p>Generate cryptographically secure random UUID v4 identifiers or time-ordered RFC 9562 UUID v7 database primary keys. Bulk generate up to 1,000 unique UUIDs with custom formatting.</p>
+          <a href="#" class="btn btn-primary" style="margin-top: 0.5rem;">Open UUID Tool</a>
+        </article>
+      </div>
+
+      <!-- UUID Tool UI -->
+      <article class="tool-card" style="margin-top: 2.5rem;">
+        <div class="tool-card-icon" style="margin-bottom: 1rem;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
+        </div>
+
+        <div class="code-block" id="uuid-input-container" style="flex: 1; margin-bottom: 1rem;">
+          <textarea id="uuid-input" rows="6" cols="80" style="width: 100%; height: 100%; padding: 0.75rem; font-family: var(--font-mono); font-size: 0.95rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical;" placeholder="Bulks generated UUIDs appear here..."></textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Version:</label>
+          <select id="uuid-version" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <option value="v4">v4 (random)</option>
+            <option value="v7">v7 (time-based)</option>
+          </select>
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Format:</label>
+          <select id="uuid-format" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-left: 0.5rem;">
+            <option value="standard">Standard (with hyphens, lowercase)</option>
+            <option value="uppercase">Uppercase</option>
+            <option value="no-hyphens">No hyphens</option>
+            <option value="braces">Braces {xxxx...}</option>
+          </select>
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Count:</label>
+          <input type="number" id="uuid-count" min="1" max="1000" value="1" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-left: 0.5rem;">
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <button id="uuid-go-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Generate</button>
+        </div>
+
+        <div id="uuid-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Output:</span>
+            <span id="uuid-output-status">Ready</span>
+          </div>
+          <pre><code id="uuid-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color);"></code></pre>
+        </div>
+
+        <div id="uuid-error-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem; border-left: 3px solid var(--error-color);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Error:</span>
+            <span id="uuid-error-status">Fix the input above.</span>
+          </div>
+          <pre><code id="uuid-error" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--error-color);"></code></pre>
+        </div>
+      </article>
+
+      <!-- Usage Guide & Step-by-Step -->
+      <section class="editorial-content" style="margin-top: 3rem; max-width: 900px;">
+        <h2>How to Use the UUID Generator</h2>
+
+        <h3>Step 1: Select UUID Version</h3>
+        <p>Choose which UUID version to generate:</p>
+        <ul>
+          <li><strong>"v4 (random):</strong> A cryptographically secure random UUID per RFC 4122. Uses <code>crypto.randomUUID()</code> or <code>crypto.getRandomValues()</code> for maximum entropy. These are suitable for session IDs, transaction identifiers, and any case where a unique identifier is needed without requiring temporal ordering.</li>
+          <li><strong>"v7 (time-based):</strong> An RFC 9562 time-ordered UUID that encodes a 48-bit Unix epoch millisecond timestamp in the first 6 bytes, followed by 74 bits of random entropy. UUID v7 provides natural chronological sorting, making it ideal for database primary keys where insert order matters.</li>
+        </ul>
+
+        <h3>Step 2: Select Format</h3>
+        <p>Choose how the UUID should be formatted:</p>
+        <ul>
+          <li><strong>"Standard:</strong> The canonical format with hyphens and lowercase hex (e.g., <code>f47ac10b-58cc-4372-a567-0e02b2c3d479</code>)</li>
+          <li><strong>"Uppercase:</strong> All hex characters in uppercase (e.g., <code>F47AC10B-58CC-4372-A567-0E02B2C3D479</code>)</li>
+          <li><strong>"No hyphens:</strong> Continuous 32-character hex string without separators (e.g., <code>f47ac10b58cc4372a5670e02b2c3d479</code>)</li>
+          <li><strong>"Braces:</strong> Wrapped in curly braces (e.g., <code>{f47ac10b-58cc-4372-a567-0e02b2c3d479}</code>)</li>
+        </ul>
+
+        <h3>Step 3: Specify Count</h3>
+        <p>Enter the number of UUIDs to generate (minimum 1, maximum 1,000). Bulk generation is useful for testing, populating databases with sample data, or creating unique identifiers in batch.</p>
+
+        <h3>Step 4: Generate</h3>
+        <p>Click <strong>"Generate"</strong> to produce the UUIDs. The tool will:</p>
+        <ul>
+          <li>Generate the specified number of UUIDs using the selected version and format</li>
+          <li>Display them in a copyable output area</li>
+          <li>Support live generation as you type (for single UUID generation)</li>
+        </ul>
+        <p>The output updates as you change options.</p>
+
+        <h3>Step 5: Copy, Download, or Load Example</h3>
+        <ul>
+          <li><strong>Copy All:</strong> Copies all generated UUIDs to your clipboard. Each UUID is separated by a newline, making it easy to paste into lists, databases, or config files. You can also use the keyboard shortcut <strong>Ctrl + Enter</strong> (or Cmd+Enter on macOS) to generate new UUIDs.</li>
+          <li><strong>Download .txt:</strong> Saves the generated UUIDs as a <code>.txt</code> file named <code>uuid-output.txt</code>. The file contains one UUID per line in the selected format.</li>
+          <li><strong>Load Example:</strong> Populates the input with a realistic set of example UUIDs in standard format. This is great for testing the generator without needing your own data.</li>
+        </ul>
+
+        <h3>Under the Hood</h3>
+        <p>The UUID generator implements a pure JavaScript pipeline with zero dependencies, adhering to the relevant RFC specifications:</p>
+        <ol>
+          <li><strong>UUID v4 generation:</strong> Uses the browser's <code>crypto.randomUUID()</code> API when available (modern Chrome, Firefox, Safari, Edge). Falls back to <code>crypto.getRandomValues()</code> with a Uint8Array of 16 bytes for maximum entropy. The version and variant bits are set per RFC 4122: byte 6 has its upper 4 bits set to <code>0100</code> (version 4), and byte 8 has its upper 2 bits set to <code>10</code> (variant 1, the IETF recommended variant).</li>
+          <li><strong>UUID v7 generation:</strong> Implements RFC 9562, utilizing a 48-bit Unix epoch millisecond timestamp followed by 74 bits of cryptographically secure random entropy. The timestamp provides natural chronological ordering, while the random bits ensure uniqueness. Byte 6 has its upper 4 bits set to <code>0111</code> (version 7), and byte 8 has its upper 2 bits set to <code>10</code> (variant 1).</li>
+          <li><strong>Formatting:</strong> After generation, the 16-byte binary is converted to a standard 36-character string representation (8-4-4-4-12 hex groups separated by hyphens). Formatting options (uppercase, no hyphens, braces) are applied by manipulating the string representation.</li>
+          <li><strong>Bulk generation:</strong> For multiple UUIDs, the generator creates each one independently using the same cryptographic random source, ensuring statistical independence between generated identifiers.</li>
+        </ol>
+        <p>All processing happens entirely in your browser—no UUIDs are ever uploaded to a server.</p>
+
+        <h3>Common Errors and Fixes</h3>
+        <dl>
+          <dt><strong>Browser does not support crypto.randomUUID()</strong></dt>
+          <dd>The tool falls back to <code>crypto.getRandomValues()</code>, which is supported in all modern browsers. If you're on an extremely old browser, the fallback uses <code>Math.random()</code> with proper byte generation, which is less secure but still functional.</dd>
+
+          <dt><strong>Output seems predictable</strong></dt>
+          <dd>UUID v4 relies on cryptographically secure random number generation. If output appears patterned, it may be due to the browser's RNG seeding. The v7 timestamp component is intentionally predictable (it's a time-based identifier), which is by design per RFC 9562.</dd>
+
+          <dt><strong>Bulk generation is slow for 1,000 UUIDs</strong></dt>
+          <dd>Generating 1,000 UUIDs locally is instant for modern browsers. If the UI appears frozen, it may be due to the browser's main thread being blocked. The generator is optimized for performance, but very old devices may experience minor delays.</dd>
+        </dl>
+
+        <h3>Use Cases</h3>
+        <ul>
+          <li><strong>Session management:</strong> Generate unique session IDs for web applications that cannot be guessed or predicted.</li>
+          <li><strong>Database primary keys:</strong> Use UUID v7 for time-sorted primary keys in distributed databases, avoiding the need for sequence generators and enabling easy merging from multiple sources.</li>
+          <li><strong>Transaction identifiers:</strong> Create unique IDs for financial transactions, API requests, or event tracking.</li>
+          <li><strong>Testing and mock data:</strong> Bulk generate UUIDs for populating test databases, seeding fixtures, or filling form fields in QA workflows.</li>
+          <li><strong>Unique naming:</strong> Generate unique names for files, resources, or identifiers in CI/CD pipelines, build scripts, or infrastructure-as-code.</li>
+        </ul>
+
+        <h3>5-Question FAQ</h3>
+        <dl class="faq-item">
+          <dt class="faq-question">Do you upload my data to a server?</dt>
+          <dd class="faq-answer"><p>No. DevTools Hub executes 100% client-side inside your browser JavaScript runtime. No text, identifiers, or data are ever sent across the network or stored in databases. Verify by checking your browser's Developer Tools Network tab—zero outbound requests are made when processing data.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">What's the difference between UUID v4 and v7?</dt>
+          <dd class="faq-answer"><p>UUID v4 is a purely random identifier with no deterministic ordering. UUID v7 encodes a 48-bit millisecond timestamp, providing natural chronological sorting. Use v4 for opaque identifiers where order doesn't matter; use v7 as a database primary key when you need time-based ordering and efficient range queries.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Are UUIDs guaranteed to be unique?</dt>
+          <dd class="faq-answer"><p>While UUIDs have an extremely low probability of collision (2^128 possible values for v4, ~2^80 bits of entropy for v7), they are not mathematically guaranteed unique. For critical systems requiring absolute uniqueness, use a combination of UUID and additional entropy, or use database-generated sequences. For almost all practical applications, the collision probability is negligible.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Can I use this to generate UUIDs for production systems?</dt>
+          <dd class="faq-answer"><p>Yes. The tool uses crypto-grade random number generation suitable for production. However, always validate generated UUIDs against your system's requirements and consider edge cases like distributed generation without coordination.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">What does the version byte indicate?</dt>
+          <dd class="faq-answer"><p>The version byte (6th byte in the UUID) indicates the UUID variant and version number per RFC 4122 (v1, v3, v4, v5, v7) or RFC 9562 (v7). Our generator sets the correct version bits: v4 sets bits to 0100, v7 sets bits to 0111. The variant bits (upper 2 bits of byte 8) are set to 10, the IETF recommended variant.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Can I generate UUIDs offline?</dt>
+          <dd class="faq-answer"><p>Yes. Once the DevTools Hub page is loaded, all UUID generation happens entirely in your browser without requiring an internet connection. The service worker (sw.js) can also cache the page for offline use.</p></dd>
+        </dl>
+      </section>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>DevTools Hub</h4>
+          <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:1rem;">
+            DevTools Hub provides free, client-side developer utilities designed for speed, security, and privacy. Built with zero tracking and zero server logging.
+          </p>
+          <p style="font-size:0.85rem; color:var(--accent-color); font-weight:600;">🔒 Your data never leaves your browser.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Developer Tools</h4>
+          <ul>
+            <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+            <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+            <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+            <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+            <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+            <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Engineering Blog</h4>
+          <ul>
+            <li><a href="/blog/what-is-json-common-errors.html">JSON Syntax & Errors Guide</a></li>
+            <li><a href="/blog/base64-encoding-explained.html">Base64 Architecture & UTF-8</a></li>
+            <li><a href="/blog/encodeuri-vs-encodeuricomponent.html">encodeURI vs encodeURIComponent</a></li>
+            <li><a href="/blog/why-minify-html-css-page-speed.html">Why Minify HTML & CSS?</a></li>
+            <li><a href="/blog/uuid-v4-vs-v7-database-keys.html">UUID v4 vs v7 for Databases</a></li>
+            <li><a href="/blog/">View All 8 Articles →</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Trust & Legal</h4>
+          <ul>
+            <li><a href="/about.html">About & Editorial Standards</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms-of-service.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="/tests/tool-tests.html">Automated Test Suite</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 DevTools Hub. All rights reserved. Free and open client-side utilities.</span>
+        <span>Hosted securely on GitHub Pages with HTTPS.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie and Privacy Consent">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        <strong>Privacy & Cookie Consent:</strong> We strictly respect your privacy. DevTools Hub never logs or uploads your payloads to servers. We use basic cookies and local storage only to remember your theme and indentation preferences and to serve non-intrusive advertisements. Learn more in our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/cookie-policy.html">Cookie Policy</a>.
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-accept-btn" class="btn btn-primary btn-sm">Accept All</button>
+        <button id="cookie-reject-btn" class="btn btn-outline btn-sm">Reject Non-Essential</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/core-tools.js"></script>
+  <script src="/assets/js/app.js"></script>
+  <script>
+    // UUID Generator Specific Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const uuidInput = document.getElementById('uuid-input');
+      const uuidGoBtn = document.getElementById('uuid-go-btn');
+      const uuidVersion = document.getElementById('uuid-version');
+      const uuidFormat = document.getElementById('uuid-format');
+      const uuidCount = document.getElementById('uuid-count');
+      const uuidOutput = document.getElementById('uuid-output');
+      const uuidLiveOutput = document.getElementById('uuid-live-output');
+      const uuidErrorOutput = document.getElementById('uuid-error-output');
+      const uuidOutputStatus = document.getElementById('uuid-output-status');
+      const uuidErrorStatus = document.getElementById('uuid-error-status');
+      const uuidCopyBtn = document.getElementById('uuid-copy-btn');
+      const uuidClearBtn = document.getElementById('uuid-clear-btn');
+      const uuidSwapBtn = document.getElementById('uuid-swap-btn');
+      const uuidDownloadBtn = document.getElementById('uuid-download-btn');
+      const uuidExampleBtn = document.getElementById('uuid-example-btn');
+
+      // Example UUIDs for demonstration
+      const exampleUuids = [
+        'f47ac10b-58cc-4372-a567-0e02b2c3d479',
+        '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
+        'f47ac10b-58cc-4372-a567-0e02b2c3d479',
+        '6ba7b811-9dad-11d1-80b4-00c04fd430c8',
+        'f47ac10c-58cc-4372-a567-0e02b2c3d479'
+      ];
+
+      // Generate UUID function using DevToolsCore.uuid
+      function generateUUIDs() {
+        const version = uuidVersion.value;
+        const format = uuidFormat.value;
+        const count = Math.min(Math.max(1, parseInt(uuidCount.value, 10)), 1000);
+
+        if (count > 1000) {
+          showError('Maximum 1,000 UUIDs allowed at once.');
+          return;
+        }
+
+        try {
+          let results;
+          if (version === 'v7') {
+            results = DevToolsCore.uuid.bulkGenerate({ version: 'v7', count });
+          } else {
+            results = DevToolsCore.uuid.bulkGenerate({ version: 'v4', count });
+          }
+
+          // Format results
+          let output = results.map(uuid => {
+            let formatted = uuid;
+            if (format === 'uppercase') {
+              formatted = formatted.toUpperCase();
+            }
+            if (format === 'no-hyphens') {
+              formatted = formatted.replace(/-/g, '');
+            }
+            if (format === 'braces') {
+              formatted = `{${formatted}}`;
+            }
+            return formatted;
+          }).join('\n');
+
+          showOutput(output);
+          uuidOutputStatus.textContent = `${count} UUID${count > 1 ? 's' : ' '} generated`;
+        } catch (err) {
+          showError('Generation error: ' + err.message);
+        }
+      }
+
+      // Show output in live panel
+      function showOutput(text) {
+        uuidOutput.textContent = text;
+        uuidLiveOutput.style.display = 'block';
+        uuidErrorOutput.style.display = 'none';
+      }
+
+      // Show error in error panel
+      function showError(message) {
+        uuidError.textContent = message;
+        uuidErrorOutput.style.display = 'block';
+        uuidLiveOutput.style.display = 'none';
+        uuidOutputStatus.textContent = 'Error';
+      }
+
+      // Copy to clipboard
+      async function copyOutput() {
+        const output = uuidOutput.textContent || uuidError.textContent || '';
+        if (!output) {
+          showToast('Nothing to copy.', 'error');
+          return;
+        }
+        await DevToolsApp.copyText(output);
+      }
+
+      // Clear input and output
+      function clearOutput() {
+        uuidInput.value = '';
+        uuidLiveOutput.style.display = 'none';
+        uuidErrorOutput.style.display = 'none';
+        uuidOutputStatus.textContent = 'Ready';
+        uuidErrorStatus.textContent = 'Fix the input above.';
+      }
+
+      // Swap input and output roles
+      function swapInputOutput() {
+        const inputVal = uuidInput.value;
+        uuidInput.value = uuidOutput.textContent || '';
+        showOutput(inputVal ? inputVal : '');
+      }
+
+      // Download output as .txt file
+      function downloadOutput() {
+        const output = uuidOutput.textContent || '';
+        if (!output) {
+          showToast('No output to download. Generate UUIDs first.', 'error');
+          return;
+        }
+        DevToolsApp.downloadFile(output, 'uuid-output.txt', 'text/plain;charset=utf-8');
+      }
+
+      // Load example UUIDs
+      function loadExample() {
+        uuidInput.value = exampleUuids.join('\n');
+        uuidInput.focus();
+        showToast('Example UUIDs loaded', 'success');
+      }
+
+      // Event listeners
+      uuidGoBtn.addEventListener('click', generateUUIDs);
+      uuidCopyBtn.addEventListener('click', copyOutput);
+      uuidClearBtn.addEventListener('click', clearOutput);
+      uuidSwapBtn.addEventListener('click', swapInputOutput);
+      uuidDownloadBtn.addEventListener('click', downloadOutput);
+      uuidExampleBtn.addEventListener('click', loadExample);
+
+      // Live generate on change (debounced)
+      let generateTimeout;
+      uuidVersion.addEventListener('change', () => {
+        clearTimeout(generateTimeout);
+        generateTimeout = setTimeout(generateUUIDs, 300);
+      });
+      uuidFormat.addEventListener('change', () => {
+        clearTimeout(generateTimeout);
+        generateTimeout = setTimeout(generateUUIDs, 300);
+      });
+      uuidCount.addEventListener('input', () => {
+        clearTimeout(generateTimeout);
+        generateTimeout = setTimeout(generateUUIDs, 300);
+      });
+
+      // Keyboard shortcut: Ctrl+Enter to generate
+      uuidInput.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          generateUUIDs();
+        }
+      });
+
+      // Initialize: load example on first visit
+      if (!localStorage.getItem('uuid-example-loaded')) {
+        loadExample();
+        localStorage.setItem('uuid-example-loaded', 'true');
+      }
+    });
+  </script>
+</body>
+</html>

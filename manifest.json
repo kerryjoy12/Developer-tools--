@@ -1,0 +1,17 @@
+{
+  "name": "DevTools Hub - Free Online Developer Tools",
+  "short_name": "DevTools Hub",
+  "description": "Fast, private, 100% client-side developer tools for JSON, HTML, CSS, Base64, URL and UUIDs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/assets/img/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

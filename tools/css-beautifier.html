@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Beautifier - DevTools Hub</title>
+  <meta name="description" content="Beautify and minify CSS online. Proper indentation, one declaration per line, handles @media/@keyframes/nested rules, strings, and url() values. Size comparison when minifying.">
+  <link rel="canonical" href="https://devtools-hub.com/tools/css-beautifier.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devtools-hub.com/tools/css-beautifier.html">
+  <meta property="og:title" content="CSS Beautifier - DevTools Hub">
+  <meta property="og:description" content="Beautify and minify CSS online. 100% client-side, no data upload.">
+  <meta property="og:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://devtools-hub.com/tools/css-beautifier.html">
+  <meta name="twitter:title" content="CSS Beautifier - DevTools Hub">
+  <meta name="twitter:description" content="Beautify and minify CSS online. 100% client-side, no data upload.">
+  <meta name="twitter:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/icon.svg">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- Google AdSense Script Placeholder -->
+  <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your approved AdSense Publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "CSS Beautifier & Minifier",
+    "description": "Beautify and minify CSS online. Proper indentation, handles @media/@keyframes/nested rules, strings, and url() values. 100% client-side, no data upload.",
+    "url": "https://devtools-hub.com/tools/css-beautifier.html",
+    "appController": "https://devtools-hub.com/tools/css-beautifier.html",
+    "operatingSystem": ["Browser"],
+    "category": "Developer Tools",
+    "author": {
+      "@type": "Organization",
+      "name": "DevTools Hub"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Global Sticky Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand" aria-label="DevTools Hub Homepage">
+        <svg class="brand-icon" viewBox="0 0 48 48">
+          <rect width="48" height="48" rx="10" fill="#2563eb"/>
+          <path d="M14 16 L6 24 L14 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M34 16 L42 24 L34 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M27 12 L21 36" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>DevTools Hub</span>
+      </a>
+
+      <nav id="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li class="dropdown">
+            <button class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              Tools <span style="font-size:0.75rem;">▼</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+              <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+              <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+              <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+              <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+              <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog/">Engineering Blog</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Theme"></button>
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Open mobile navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero-section" style="padding: 4rem 0 3rem; background: var(--surface-1); border-bottom: 1px solid var(--border-color); text-align: center;">
+      <div class="container">
+        <div class="privacy-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          100% Client-Side Privacy: Your data never leaves your browser
+        </div>
+        <h1 style="font-size: 2.75rem; max-width: 800px; margin: 0 auto 1rem; letter-spacing: -0.02em;">
+          CSS Beautifier & Minifier
+        </h1>
+        <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 2rem;">
+          Format messy stylesheets into clean, standardized rules with configurable indentation. Seamlessly switch to minification mode to compress stylesheets for high-speed page loads.
+        </p>
+
+        <!-- Control Buttons -->
+        <div style="max-width: 500px; margin: 0 auto 2rem; gap: 0.75rem; justify-content: center;">
+          <button id="css-copy-btn" class="btn btn-outline" style="min-width: 140px;">Copy Output</button>
+          <button id="css-clear-btn" class="btn btn-outline" style="min-width: 140px;">Clear</button>
+          <button id="css-swap-btn" class="btn btn-outline" style="min-width: 140px;">Swap</button>
+          <button id="css-download-btn" class="btn btn-primary" style="min-width: 140px;">Download .css</button>
+          <button id="css-theme-btn" class="btn btn-secondary" style="min-width: 140px;">Toggle Theme Mode</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 3.5rem 0;">
+      <div class="tool-grid">
+        <article class="tool-card" data-keywords="css beautifier minifier format stylesheets rules media queries">
+          <div class="tool-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <h3>CSS Beautifier & Minifier</h3>
+          <p>Format messy stylesheets into clean, standardized rules with configurable indentation. Seamlessly switch to minification mode to compress stylesheets for high-speed page loads.</p>
+          <a href="#" class="btn btn-primary" style="margin-top: 0.5rem;">Open CSS Tool</a>
+        </article>
+      </div>
+
+      <!-- CSS Tool UI -->
+      <article class="tool-card" style="margin-top: 2.5rem;">
+        <div class="tool-card-icon" style="margin-bottom: 1rem;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+        </div>
+
+        <div class="code-block" id="css-input-container" style="flex: 1; margin-bottom: 1rem;">
+          <textarea id="css-input" rows="10" cols="80" 
+                    style="width: 100%; height: 100%; padding: 0.75rem; font-family: var(--font-mono); font-size: 0.95rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical;"
+                    placeholder="Paste CSS here or load an example.../* Example CSS */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.header {
+  background: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+.nav a {
+  color: #fff;
+  margin: 0 1rem;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 0.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+a:hover { color: #ddd; }
+.url-example { background: url('https://example.com/image.png'); }</textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Indent:</label>
+          <select id="css-indent" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <option value="2">2 spaces</option>
+            <option value="4">4 spaces</option>
+            <option value="tab">Tab</option>
+            <option value="none">None (minify)</option>
+          </select>
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Mode:</label>
+          <select id="css-mode" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-left: 0.5rem;">
+            <option value="beautify">Beautify</option>
+            <option value="minify">Minify</option>
+          </select>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <button id="css-go-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Process CSS</button>
+        </div>
+
+        <div id="css-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Output:</span>
+            <span id="css-output-status">Ready</span>
+          </div>
+          <pre><code id="css-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color);"></code></pre>
+        </div>
+
+        <div id="css-error-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem; border-left: 3px solid var(--error-color);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Error:</span>
+            <span id="css-error-status">Fix the input above.</span>
+          </div>
+          <pre><code id="css-error" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--error-color);"></code></pre>
+        </div>
+      </article>
+
+      <!-- Usage Guide & Step-by-Step -->
+      <section class="editorial-content" style="margin-top: 3rem; max-width: 900px;">
+        <h2>How to Use the CSS Beautifier & Minifier</h2>
+
+        <h3>Step 1: Paste Your CSS</h3>
+        <p>Enter your stylesheet in the input textarea. You can paste full stylesheets, component-level CSS, or individual rule sets. The tool handles everything from simple single-file styles to complex stylesheets with @media queries, @keyframes animations, nested rules, and url() values.</p>
+
+        <h3>Step 2: Configure Options</h3>
+        <p>Select the processing mode and indentation:</p>
+        <ul>
+          <li><strong>Mode:</strong> <strong>"Beautify"</strong> formats the CSS with proper indentation and one declaration per line. <strong>"Minify"</strong> compresses the CSS by removing whitespace, comments, and unnecessary characters while preserving critical values like url() and strings.</li>
+          <li><strong>Indent size:</strong> Select 2 spaces, 4 spaces, a tab character, or "None" for minification (removes all whitespace).</li>
+        </ul>
+
+        <h3>Step 3: Process CSS</h3>
+        <p>Click <strong>"Process CSS"</strong> to produce the output. The tool will:</p>
+        <ul>
+          <li><strong>Beautify:</strong> Add consistent indentation, place one declaration per line, organize rules logically, and handle @media, @keyframes, and nested rules without breaking syntax.</li>
+          <li><strong>Minify:</strong> Remove comments, collapse whitespace, and produce the most compact representation possible while preserving url("data:..."), string values, and critical @rules.</li>
+        </ul>
+        <p>The output updates live as you type (debounced for large inputs).</p>
+
+        <h3>Step 4: Inspect Size Comparison</h3>
+        <p>The tool calculates and displays the byte savings from minification:</p>
+        <ul>
+          <li><strong>Original size:</strong> Bytes of the input (measured via UTF-8 TextEncoder)</li>
+          <li><strong>Minified size:</strong> Bytes of the output</li>
+          <li><strong>% saved:</strong> Percentage reduction in file size</li>
+        </ul>
+        <p>This helps you quantify the impact on page load performance, especially for stylesheets delivered to production.</p>
+
+        <h3>Step 5: Copy, Download, or Load Example</h3>
+        <ul>
+          <li><strong>Copy Output:</strong> Copies the formatted or minified CSS to your clipboard. The keyboard shortcut <strong>Ctrl + Enter</strong> (or Cmd+Enter on macOS) processes the input.</li>
+          <li><strong>Download .css:</strong> Saves the output as a <code>.css</code> file named <code>formatted-styles.css</code> or <code>minified-styles.css</code> depending on the mode. The file uses UTF-8 encoding.</li>
+          <li><strong>Load Example:</strong> Populates the input with a realistic CSS stylesheet containing body rules, a .header class, @media queries for responsive design, @keyframes animations, url() values for backgrounds, and string values. This demonstrates that the beautifier and minifier handle these constructs correctly.</li>
+        </ul>
+
+        <h3>Under the Hood</h3>
+        <p>The CSS processor implements a rule-based pipeline that operates entirely in the browser with zero dependencies:</p>
+        <ol>
+          <li><strong>Token stashing:</strong> Before any processing, the tool identifies and stashes three critical categories of content that must not be tampered with:</li>
+          <ul>
+            <li><strong>Comments:</strong> All CSS comments are preserved in beautification and removed only in minification (except license comments /*! ... */ which are also preserved).</li>
+            <li><strong>url() expressions:</strong> Both <code>url(...)</code> and <code>url("data:...")</code> are stashed to prevent breaking relative paths or data URIs.</li>
+            <li><strong>Quoted strings:</strong> Single and double-quoted values (including font names, URLs, and other CSS string content) are stashed to prevent corruption.</li>
+          </ul>
+          <li><strong>Beautification pipeline:</strong> The beautifier tokenizes the CSS, normalizes whitespace around structural tokens ({ } : ; ,), and iterates through lines maintaining a depth counter for nested rules. Opening braces increase depth; closing braces decrease it. Each line is prefixed with the appropriate indentation based on current depth.</li>
+          <li><strong>Minification pipeline:</strong> The minifier removes block comments, collapses whitespace around structural tokens, and removes redundant semicolons. Preserved tokens (comments, url(), strings) are re-inserted at the end.</li>
+          <li><strong>Byte savings calculation:</strong> Using the Web API <code>TextEncoder</code>, the tool measures the original and minified byte counts for an accurate UTF-8 size comparison.</li>
+        </ol>
+        <p>All processing happens entirely in your browser—no CSS is ever uploaded to a server.</p>
+
+        <h3>Common Errors and Fixes</h3>
+        <dl>
+          <dt><strong>Output looks broken or mangled</strong></dt>
+          <dd>This typically happens when url() values or string content are incorrectly processed. The tool specifically stashes these before processing. If you see issues, ensure your input uses standard CSS syntax and that url() values are properly quoted.</dd>
+
+          <dt><strong>@media or @keyframes rules not preserved</strong></dt>
+          <dd>The beautifier and minifier both handle @rules, but complex nested @rules may need proper brace matching. The example input demonstrates correct handling of @media and @keyframes.</dd>
+
+          <dt><strong>Unexpected whitespace in minified output</strong></dt>
+          <dd>The minifier removes most whitespace, but some may persist around preserved tokens. This is expected and ensures url() and string values remain intact.</dd>
+        </dl>
+
+        <h3>Use Cases</h3>
+        <ul>
+          <li><strong>Development workflow:</strong> Beautify messy or minified CSS from legacy projects to make it readable and maintainable.</li>
+          <li><strong>Production deployment:</strong> Minify CSS files to reduce payload size and improve render-blocking performance.</li>
+          <li><strong>Responsive design debugging:</strong> Use the beautifier to inspect @media query structure and verify breakpoint logic.</li>
+          <li><strong>Keyframe animation review:</strong> Format @keyframes rules to easily review animation timings and property sequences.</li>
+          <li><strong>Learning and teaching:</strong> Use the example input to demonstrate CSS structure, @rules, and value handling to students or junior developers.</li>
+        </ul>
+
+        <h3>5-Question FAQ</h3>
+        <dl class="faq-item">
+          <dt class="faq-question">Do you upload my CSS to a server?</dt>
+          <dd class="faq-answer"><p>No. DevTools Hub executes 100% client-side inside your browser JavaScript runtime. No text, stylesheets, or files are ever sent across the network or stored in databases. Verify by checking your browser's Developer Tools Network tab—zero outbound requests are made when processing data.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Will minification break my url() values or data URIs?</dt>
+          <dd class="faq-answer"><p>No. The minifier specifically stashes url() expressions (including url("data:...")) before any processing and re-inserts them exactly as-is in the output. Your relative paths and data URIs are preserved.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Can I use this to format CSS from preprocessors like Sass or Less?</dt>
+          <dd class="faq-answer"><p>The tool works on standard CSS syntax. If you have Sass (.scss) or Less (.less) with nesting, variables, or mixins, the output may not preserve those constructs since they require a preprocessor compiler. However, the core CSS rules within those files will be beautified or minified correctly.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">What's the typical % savings I can expect from minification?</dt>
+          <dd class="faq-answer"><p>It varies based on the CSS's existing structure. A stylesheet with generous comments, multiple blank lines between rules, and long parameter lists might see 50-70% reduction. Already-minified or compact CSS might only see 10-25% reduction. The tool displays the exact % saved for your specific input.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Does the beautifier reorder my CSS properties?</dt>
+          <dd class="faq-answer"><p>No. The beautifier preserves the exact order of rules and declarations as they appear in your input. It only adds consistent indentation and formatting without rearranging the source order.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Is minified CSS still valid?</dt>
+          <dd class="faq-answer"><p>Minification preserves the semantic validity of the original CSS. However, removing comments and collapsing whitespace may affect how some tools or editors interpret the file. For critical production use, validate the minified output with a CSS linter or validator.</p></dd>
+        </dl>
+      </section>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>DevTools Hub</h4>
+          <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:1rem;">
+            DevTools Hub provides free, client-side developer utilities designed for speed, security, and privacy. Built with zero tracking and zero server logging.
+          </p>
+          <p style="font-size:0.85rem; color:var(--accent-color); font-weight:600;">🔒 Your data never leaves your browser.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Developer Tools</h4>
+          <ul>
+            <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+            <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+            <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+            <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+            <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+            <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Engineering Blog</h4>
+          <ul>
+            <li><a href="/blog/what-is-json-common-errors.html">JSON Syntax & Errors Guide</a></li>
+            <li><a href="/blog/base64-encoding-explained.html">Base64 Architecture & UTF-8</a></li>
+            <li><a href="/blog/encodeuri-vs-encodeuricomponent.html">encodeURI vs encodeURIComponent</a></li>
+            <li><a href="/blog/why-minify-html-css-page-speed.html">Why Minify HTML & CSS?</a></li>
+            <li><a href="/blog/uuid-v4-vs-v7-database-keys.html">UUID v4 vs v7 for Databases</a></li>
+            <li><a href="/blog/">View All 8 Articles →</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Trust & Legal</h4>
+          <ul>
+            <li><a href="/about.html">About & Editorial Standards</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms-of-service.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="/tests/tool-tests.html">Automated Test Suite</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 DevTools Hub. All rights reserved. Free and open client-side utilities.</span>
+        <span>Hosted securely on GitHub Pages with HTTPS.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie and Privacy Consent">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        <strong>Privacy & Cookie Consent:</strong> We strictly respect your privacy. DevTools Hub never logs or uploads your payloads to servers. We use basic cookies and local storage only to remember your theme and indentation preferences and to serve non-intrusive advertisements. Learn more in our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/cookie-policy.html">Cookie Policy</a>.
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-accept-btn" class="btn btn-primary btn-sm">Accept All</button>
+        <button id="cookie-reject-btn" class="btn btn-outline btn-sm">Reject Non-Essential</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/core-tools.js"></script>
+  <script src="/assets/js/app.js"></script>
+  <script>
+    // CSS Beautifier/Minifier Specific Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const cssInput = document.getElementById('css-input');
+      const cssGoBtn = document.getElementById('css-go-btn');
+      const cssMode = document.getElementById('css-mode');
+      const cssIndent = document.getElementById('css-indent');
+      const cssOutput = document.getElementById('css-output');
+      const cssLiveOutput = document.getElementById('css-live-output');
+      const cssErrorOutput = document.getElementById('css-error-output');
+      const cssOutputStatus = document.getElementById('css-output-status');
+      const cssErrorStatus = document.getElementById('css-error-status');
+      const cssCopyBtn = document.getElementById('css-copy-btn');
+      const cssClearBtn = document.getElementById('css-clear-btn');
+      const cssSwapBtn = document.getElementById('css-swap-btn');
+      const cssDownloadBtn = document.getElementById('css-download-btn');
+      const cssThemeBtn = document.getElementById('css-theme-btn');
+
+      // Example CSS for demonstration
+      const exampleCss = `/* Example CSS */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+
+.header {
+  background: #333;
+  color: #fff;
+  padding: 1rem;
+}
+
+.nav a {
+  color: #fff;
+  margin: 0 1rem;
+  text-decoration: none;
+}
+
+@media (max-width: 600px) {
+  .header {
+    padding: 0.5rem;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+a:hover { color: #ddd; }
+.url-example { background: url('https://example.com/image.png'); }`;
+
+      // Process CSS function using DevToolsCore.css
+      function processCSS() {
+        const input = cssInput.value.trim();
+        const mode = cssMode.value;
+        const indentVal = cssIndent.value;
+
+        if (!input) {
+          showError('Input is empty. Paste CSS to process.');
+          return;
+        }
+
+        try {
+          let output;
+          if (mode === 'beautify') {
+            output = DevToolsCore.css.beautify(input, indentVal);
+            cssOutputStatus.textContent = 'Beautified successfully';
+          } else if (mode === 'minify') {
+            output = DevToolsCore.css.minify(input);
+            const savings = DevToolsCore.css.calculateSavings(input, output);
+            cssOutputStatus.textContent = `${savings.percentSaved}% saved (${savings.savedBytes} bytes)`;
+          }
+
+          showOutput(output);
+        } catch (err) {
+          showError('Processing error: ' + err.message);
+        }
+      }
+
+      // Show output in live panel
+      function showOutput(text) {
+        cssOutput.textContent = text;
+        cssLiveOutput.style.display = 'block';
+        cssErrorOutput.style.display = 'none';
+      }
+
+      // Show error in error panel
+      function showError(message) {
+        cssError.textContent = message;
+        cssErrorOutput.style.display = 'block';
+        cssLiveOutput.style.display = 'none';
+        cssOutputStatus.textContent = 'Error';
+      }
+
+      // Copy to clipboard
+      async function copyOutput() {
+        const output = cssOutput.textContent || cssError.textContent || '';
+        if (!output) {
+          showToast('Nothing to copy.', 'error');
+          return;
+        }
+        await DevToolsApp.copyText(output);
+      }
+
+      // Clear input and output
+      function clearOutput() {
+        cssInput.value = '';
+        cssLiveOutput.style.display = 'none';
+        cssErrorOutput.style.display = 'none';
+        cssOutputStatus.textContent = 'Ready';
+        cssErrorStatus.textContent = 'Fix the input above.';
+      }
+
+      // Swap input and output roles
+      function swapInputOutput() {
+        const inputVal = cssInput.value;
+        cssInput.value = cssOutput.textContent || '';
+        showOutput(inputVal ? inputVal : '');
+      }
+
+      // Download output as .css file
+      function downloadOutput() {
+        const output = cssOutput.textContent || '';
+        if (!output) {
+          showToast('No output to download. Process CSS first.', 'error');
+          return;
+        }
+        DevToolsApp.downloadFile(output, 'formatted-styles.css', 'text/css');
+      }
+
+      // Load example CSS
+      function loadExample() {
+        cssInput.value = exampleCss;
+        cssInput.focus();
+        showToast('Example CSS loaded', 'success');
+      }
+
+      // Event listeners
+      cssGoBtn.addEventListener('click', processCSS);
+      cssCopyBtn.addEventListener('click', copyOutput);
+      cssClearBtn.addEventListener('click', clearOutput);
+      cssSwapBtn.addEventListener('click', swapInputOutput);
+      cssDownloadBtn.addEventListener('click', downloadOutput);
+      cssThemeBtn.addEventListener('click', () => {
+        // Toggle between beautify and minify modes
+        const current = cssMode.value;
+        cssMode.value = current === 'beautify' ? 'minify' : 'beautify';
+        showToast(`Mode switched to ${cssMode.value}`, 'info');
+      });
+
+      // Live process on type (debounced)
+      let processTimeout;
+      cssInput.addEventListener('input', () => {
+        clearTimeout(processTimeout);
+        processTimeout = setTimeout(processCSS, 300);
+      });
+
+      // Keyboard shortcut: Ctrl+Enter to process
+      cssInput.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          processCSS();
+        }
+      });
+
+      // Initialize: load example on first visit
+      if (!localStorage.getItem('css-example-loaded')) {
+        loadExample();
+        localStorage.setItem('css-example-loaded', 'true');
+      }
+    });
+  </script>
+</body>
+</html>

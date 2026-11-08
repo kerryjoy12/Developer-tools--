@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JSON Formatter - DevTools Hub</title>
+  <meta name="description" content="Format, validate, and minify JSON online. Configurable indentation, key sorting, tree view, and error location with line and column numbers.">
+  <link rel="canonical" href="https://devtools-hub.com/tools/json-formatter.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://devtools-hub.com/tools/json-formatter.html">
+  <meta property="og:title" content="JSON Formatter - DevTools Hub">
+  <meta property="og:description" content="Format, validate, and minify JSON data online. 100% client-side, no data upload.">
+  <meta property="og:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:url" content="https://devtools-hub.com/tools/json-formatter.html">
+  <meta name="twitter:title" content="JSON Formatter - DevTools Hub">
+  <meta name="twitter:description" content="Format, validate, and minify JSON data online. 100% client-side, no data upload.">
+  <meta name="twitter:image" content="https://devtools-hub.com/assets/img/og-banner.svg">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/icon.svg">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <!-- Google AdSense Script Placeholder -->
+  <!-- Replace ca-pub-XXXXXXXXXXXXXXXX with your approved AdSense Publisher ID -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "JSON Formatter & Validator",
+    "description": "Format, validate, and minify JSON data online. 100% client-side, no data upload.",
+    "url": "https://devtools-hub.com/tools/json-formatter.html",
+    "appController": "https://devtools-hub.com/tools/json-formatter.html",
+    "operatingSystem": ["Browser"],
+    "category": "Developer Tools",
+    "author": {
+      "@type": "Organization",
+      "name": "DevTools Hub"
+    }
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Global Sticky Navigation Header -->
+  <header class="site-header">
+    <div class="container nav-container">
+      <a href="/" class="brand" aria-label="DevTools Hub Homepage">
+        <svg class="brand-icon" viewBox="0 0 48 48">
+          <rect width="48" height="48" rx="10" fill="#2563eb"/>
+          <path d="M14 16 L6 24 L14 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M34 16 L42 24 L34 32" fill="none" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M27 12 L21 36" fill="none" stroke="#38bdf8" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span>DevTools Hub</span>
+      </A>
+
+      <nav id="primary-nav" aria-label="Primary Navigation">
+        <ul class="nav-links">
+          <li class="dropdown">
+            <button class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              Tools <span style="font-size:0.75rem;">▼</span>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+              <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+              <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+              <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+              <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+              <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+            </ul>
+          </li>
+          <li><a href="/blog/">Engineering Blog</a></li>
+          <li><a href="/about.html">About</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle Theme"></button>
+        <button id="mobile-menu-toggle" class="mobile-menu-btn" aria-label="Open mobile navigation menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero-section" style="padding: 4rem 0 3rem; background: var(--surface-1); border-bottom: 1px solid var(--border-color); text-align: center;">
+      <div class="container">
+        <div class="privacy-badge">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+          100% Client-Side Privacy: Your data never leaves your browser
+        </div>
+        <h1 style="font-size: 2.75rem; max-width: 800px; margin: 0 auto 1rem; letter-spacing: -0.02em;">
+          JSON Formatter & Validator
+        </h1>
+        <p style="font-size: 1.15rem; color: var(--text-muted); max-width: 680px; margin: 0 auto 2rem;">
+          Beautify, validate, and minify JSON data instantly. Pinpoint syntax errors with exact line and column numbers, sort keys alphabetically, and inspect structures with an interactive tree view.
+        </p>
+
+        <!-- Control Buttons -->
+        <div style="max-width: 500px; margin: 0 auto 2rem; gap: 0.75rem; justify-content: center;">
+          <button id="json-copy-btn" class="btn btn-outline" style="min-width: 140px;">Copy Output</button>
+          <button id="json-clear-btn" class="btn btn-outline" style="min-width: 140px;">Clear</button>
+          <button id="json-swap-btn" class="btn btn-outline" style="min-width: 140px;">Swap</button>
+          <button id="json-download-btn" class="btn btn-primary" style="min-width: 140px;">Download .json</button>
+          <button id="json-example-btn" class="btn btn-secondary" style="min-width: 140px;">Load Example</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" style="padding: 3.5rem 0;">
+      <div class="tool-grid">
+        <article class="tool-card" data-keywords="json formatter validator minifier tree view syntax">
+          <div class="tool-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <h3>JSON Formatter & Validator</h3>
+          <p>Beautify, validate, and minify JSON data. Pinpoint syntax errors with exact line and column numbers, sort keys alphabetically, and inspect structures with an interactive tree view.</p>
+          <a href="#" class="btn btn-primary" style="margin-top: 0.5rem;">Open JSON Tool</a>
+        </article>
+      </div>
+
+      <!-- JSON Tool UI -->
+      <article class="tool-card" style="margin-top: 2.5rem;">
+        <div class="tool-card-icon" style="margin-bottom: 1rem;">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9l9 6l9-4"/><path d="M3 15l9 6l9-4"/></svg>
+        </div>
+
+        <div class="code-block" id="json-input-container" style="flex: 1; margin-bottom: 1rem;">
+          <textarea id="json-input" rows="10" cols="80" 
+                    style="width: 100%; height: 100%; padding: 0.75rem; font-family: var(--font-mono); font-size: 0.95rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical;"
+                    placeholder="Paste JSON here or load an example...">&nbsp;</textarea>
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Indent:</label>
+          <select id="json-indent" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <option value="2">2 spaces</option>
+            <option value="4">4 spaces</option>
+            <option value="tab">Tab</option>
+            <option value="none">None (minify)</option>
+          </select>
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Sort Keys:</label>
+          <input type="checkbox" id="json-sort-keys" style="margin-left: 0.5rem; accent-color: var(--primary-color);">
+          <span style="font-size: 0.75rem; color: var(--text-muted);">(alphabetical)</span>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <button id="json-format-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Format JSON</button>
+          <button id="json-minify-btn" class="btn btn-outline" style="flex: 1; min-width: 120px;">Minify JSON</button>
+        </div>
+
+        <div id="json-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Output:</span>
+            <span id="json-output-status">Ready</span>
+          </div>
+          <pre><code id="json-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color);"></code></pre>
+        </div>
+
+        <div id="json-error-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem; border-left: 3px solid var(--error-color);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Error:</span>
+            <span id="json-error-status">Fix the input above.</span>
+          </div>
+          <pre><code id="json-error" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--error-color);"></code></pre>
+        </div>
+      </article>
+
+      <!-- Usage Guide & Step-by-Step -->
+      <section class="editorial-content" style="margin-top: 3rem; max-width: 900px;">
+        <h2>How to Use the JSON Formatter & Validator</h2>
+
+        <h3>Step 1: Paste or Upload Your JSON</h3>
+        <p>Enter your JSON data in the input textarea. You can paste directly from an API response, a configuration file, or any JSON source. The tool accepts any valid JSON structure, from simple key-value pairs to deeply nested objects and arrays.</p>
+
+        <h3>Step 2: Choose Formatting Options</h3>
+        <p>Customize the output to your preference:</p>
+        <ul>
+          <li><strong>Indent size:</strong> Select 2 spaces, 4 spaces, a tab character, or "None" to minify the JSON (remove all whitespace).</li>
+          <li><strong>Sort keys:</strong> Check this box to alphabetize all object keys, which is helpful for diffing configuration files or ensuring consistent ordering in version control.</li>
+        </ul>
+
+        <h3>Step 3: Format or Minify</h3>
+        <p>Click <strong>"Format JSON"</strong> to produce beautifully indented, human-readable output. Click <strong>"Minify JSON"</strong> to strip all unnecessary whitespace and produce the most compact representation possible. The output updates live as you type (debounced for large inputs).</p>
+
+        <h3>Step 4: Inspect and Fix Errors</h3>
+        <p>If the JSON is invalid, the tool will immediately display an error message with the exact <strong>line</strong> and <strong>column</strong> number where the syntax issue occurs. This helps you quickly locate and fix the problem in your source file. The error panel also shows the parser's raw message describing the unexpected token or structure.</p>
+
+        <h3>Step 5: Copy, Download, or Load Example</h3>
+        <ul>
+          <li><strong>Copy Output:</strong> Copies the formatted or minified JSON to your clipboard. You can also use the keyboard shortcut <strong>Ctrl + Enter</strong> (or Cmd+Enter on macOS) to format the input.</li>
+          <li><strong>Download .json:</strong> Saves the output as a <code>.json</code> file with the name <code>formatted-json.json</code>. The downloaded file uses UTF-8 encoding and preserves the exact output you see.</li>
+          <li><strong>Load Example:</strong> Populates the input with a realistic, moderately complex JSON structure representing a user profile with nested addresses and contact methods. This is great for testing the formatter without needing your own data.</li>
+        </ul>
+
+        <h3>Under the Hood</h3>
+        <p>The formatter uses a pure JavaScript implementation with zero dependencies. JSON is parsed using the browser's native <code>JSON.parse()</code>, which validates the structure and produces a JavaScript object. The formatted output is generated via <code>JSON.stringify(data, null, indent)</code>, where the indent parameter is set by your selection. Key sorting is implemented by recursively sorting object keys using a simple <code>Object.keys().sort()</code> approach before stringifying. All processing happens entirely in your browser—no text, tokens, or files are ever uploaded to a server.</p>
+
+        <h3>Common Errors and Fixes</h3>
+        <dl>
+          <dt><strong>Unexpected token <em>S</em> in JSON at position 0</strong></dt>
+          <dd>The input is either empty or not valid JSON. Ensure you're not pasting HTML, plain text, or a trailing comma.</dd>
+
+          <dt><strong>Missing <em>colon</em> after property key</strong></dt>
+          <dd>A property is missing its value separator. JSON requires <code>key: value</code> — double-check that every key has a colon followed by its value.</dd>
+
+          <dt><text><strong>Unexpected token <em>a</em> at line 3, column 5</strong></text></dt>
+          <dd>There's a syntax issue at the specified location, often a missing comma between properties or an trailing comma after the last item in an object or array.</dd>
+
+          <dt><strong>Root element must be an object or array</strong></dt>
+          <dd>JSON must have a root that is either an object <code>{...}</code> or an array <code>[...]</code>. Text or numbers alone are not valid top-level JSON.</dd>
+        </dl>
+
+        <h3>Use Cases</h3>
+        <ul>
+          <li><strong>API debugging:</strong> Format raw JSON responses from browser DevTools or Postman to inspect structure and spot missing fields.</li>
+          <li><strong>Configuration management:</strong> Sort keys in <code>package.json</code>, <code>webpack.config.js</code>, or other config files for consistent diffs.</li>
+          <li><strong>Data serialization:</strong> Minify JSON for payload size optimization in production APIs or Chrome Extension storage.</li>
+          <li><strong>Learning and teaching:</strong> Use the example input to demonstrate JSON structure to junior developers or students.</li>
+        </ul>
+
+        <h3>5-Question FAQ</h3>
+        <dl class="faq-item">
+          <dt class="faq-question">Are my payloads or API keys uploaded to any server?</dt>
+          <dd class="faq-answer"><p>Never. DevTools Hub executes 100% client-side inside your browser JavaScript runtime. No text, tokens, payloads, or files are ever sent across the network or stored in databases. You can verify this anytime by opening your browser's Developer Tools Network tab—zero outbound requests are made when processing data.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Can I format JSON that has trailing commas?</dt>
+          <dd class="faq-answer"><p>No. JSON is strict: trailing commas are not allowed per RFC 8259, and even a single missing comma or quote will cause the parser to fail. The tool reports the exact line and column to help you locate the issue.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Does sorting keys change the data meaning?</dt>
+          <dd class="faq-answer"><p>No. JSON object key order is not significant per the RFC 8259 standard. Sorting keys is purely a cosmetic and organizational choice, useful for diffing and consistency.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Can I use this to format 10MB JSON files?</dt>
+          <dd class="faq-answer"><p>The tool debounces live output for large inputs, and very large files may cause the browser UI to slow temporarily. For multi-megabyte payloads, click "Minify JSON" for the fastest processing, or split the file into smaller chunks.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Is the output guaranteed to be valid JSON?</dt>
+          <dd class="faq-answer"><p>Yes. The formatter only produces output after successful validation via <code>JSON.parse()</code>. If the input is invalid, the tool reports the error and does not generate formatted output.</p></dd>
+        </dl>
+      </section>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>DevTools Hub</h4>
+          <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:1rem;">
+            DevTools Hub provides free, client-side developer utilities designed for speed, security, and privacy. Built with zero tracking and zero server logging.
+          </p>
+          <p style="font-size:0.85rem; color:var(--accent-color); font-weight:600;">🔒 Your data never leaves your browser.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Developer Tools</h4>
+          <ul>
+            <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+            <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+            <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+            <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+            <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+            <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Engineering Blog</h4>
+          <ul>
+            <li><a href="/blog/what-is-json-common-errors.html">JSON Syntax & Errors Guide</a></li>
+            <li><a href="/blog/base64-encoding-explained.html">Base64 Architecture & UTF-8</a></li>
+            <li><a href="/blog/encodeuri-vs-encodeuricomponent.html">encodeURI vs encodeURIComponent</a></li>
+            <li><a href="/blog/why-minify-html-css-page-speed.html">Why Minify HTML & CSS?</a></li>
+            <li><a href="/blog/uuid-v4-vs-v7-database-keys.html">UUID v4 vs v7 for Databases</a></li>
+            <li><a href="/blog/">View All 8 Articles →</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Trust & Legal</h4>
+          <ul>
+            <li><a href="/about.html">About & Editorial Standards</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms-of-service.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="/tests/tool-tests.html">Automated Test Suite</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 DevTools Hub. All rights reserved. Free and open client-side utilities.</span>
+        <span>Hosted securely on GitHub Pages with HTTPS.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie and Privacy Consent">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        <strong>Privacy & Cookie Consent:</strong> We strictly respect your privacy. DevTools Hub never logs or uploads your payloads to servers. We use basic cookies and local storage only to remember your theme and indentation preferences and to serve non-intrusive advertisements. Learn more in our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/cookie-policy.html">Cookie Policy</a>.
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-accept-btn" class="btn btn-primary btn-sm">Accept All</button>
+        <button id="cookie-reject-btn" class="btn btn-outline btn-sm">Reject Non-Essential</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/core-tools.js"></script>
+  <script src="/assets/js/app.js"></script>
+  <script>
+    // JSON Formatter Specific Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const jsonInput = document.getElementById('json-input');
+      const jsonFormatBtn = document.getElementById('json-format-btn');
+      const jsonMinifyBtn = document.getElementById('json-minify-btn');
+      const jsonOutput = document.getElementById('json-output');
+      const jsonLiveOutput = document.getElementById('json-live-output');
+      const jsonErrorOutput = document.getElementById('json-error-output');
+      const jsonOutputStatus = document.getElementById('json-output-status');
+      const jsonErrorStatus = document.getElementById('json-error-status');
+      const jsonCopyBtn = document.getElementById('json-copy-btn');
+      const jsonClearBtn = document.getElementById('json-clear-btn');
+      const jsonSwapBtn = document.getElementById('json-swap-btn');
+      const jsonDownloadBtn = document.getElementById('json-download-btn');
+      const jsonExampleBtn = document.getElementById('json-example-btn');
+      const jsonSortKeys = document.getElementById('json-sort-keys');
+      const jsonIndent = document.getElementById('json-indent');
+
+      // Example JSON data
+      const exampleJson = {
+        "name": "Alice Johnson",
+        "email": "alice@example.com",
+        "address": {
+          "street": "123 Main St",
+          "city": "Springfield",
+          "zip": "90210"
+        },
+        "phoneNumbers": [
+          {"type": "home", "number": "555-0123"},
+          {"type": "mobile", "number": "555-9876"}
+        ],
+        "isActive": true,
+        "scores": [95, 87, 91]
+      };
+
+      // Format/validate function
+      function formatJSON() {
+        const input = jsonInput.value.trim();
+        const indent = jsonIndent.value === 'tab' ? '\t' : (jsonIndent.value || 2);
+        const sortKeys = jsonSortKeys.checked;
+
+        if (!input) {
+          showError('Input is empty. Paste JSON to validate and format.');
+          return;
+        }
+
+        try {
+          const parsed = DevToolsCore.json.validate(input);
+          if (!parsed.valid) {
+            showError(parsed.message + ' (Line ' + parsed.line + ', Column ' + parsed.column + ')');
+            return;
+          }
+
+          const data = parsed.parsed;
+          let output;
+          if (sortKeys) {
+            const sorted = DevToolsCore.json.sortObjectKeys(data);
+            output = JSON.stringify(sorted, null, indent);
+          } else {
+            output = JSON.stringify(data, null, indent);
+          }
+
+          showOutput(output);
+          jsonOutputStatus.textContent = 'Formatted successfully';
+        } catch (err) {
+          showError('Invalid JSON: ' + err.message);
+        }
+      }
+
+      // Show output in live panel
+      function showOutput(text) {
+        jsonOutput.textContent = text;
+        jsonLiveOutput.style.display = 'block';
+        jsonErrorOutput.style.display = 'none';
+      }
+
+      // Show error in error panel
+      function showError(message) {
+        jsonError.textContent = message;
+        jsonErrorOutput.style.display = 'block';
+        jsonLiveOutput.style.display = 'none';
+        jsonOutputStatus.textContent = 'Error';
+      }
+
+      // Copy to clipboard
+      async function copyOutput() {
+        const output = jsonOutput.textContent || jsonError.textContent || '';
+        if (!output) {
+          showToast('Nothing to copy.', 'error');
+          return;
+        }
+        await DevToolsApp.copyText(output);
+      }
+
+      // Clear input and output
+      function clearOutput() {
+        jsonInput.value = '';
+        jsonLiveOutput.style.display = 'none';
+        jsonErrorOutput.style.display = 'none';
+        jsonOutputStatus.textContent = 'Ready';
+        jsonErrorStatus.textContent = 'Fix the input above.';
+      }
+
+      // Swap input and output roles
+      function swapInputOutput() {
+        const inputVal = jsonInput.value;
+        jsonInput.value = jsonOutput.textContent || '';
+        // Swap placeholder behavior
+        showOutput(inputVal ? inputVal : '');
+      }
+
+      // Download output as .json file
+      function downloadOutput() {
+        const output = jsonOutput.textContent || '';
+        if (!output) {
+          showToast('No output to download. Format or minify JSON first.', 'error');
+          return;
+        }
+        DevToolsApp.downloadFile(output, 'formatted-json.json', 'application/json');
+      }
+
+      // Load example JSON
+      function loadExample() {
+        jsonInput.value = JSON.stringify(exampleJson, null, 2);
+        jsonInput.focus();
+        showToast('Example JSON loaded', 'success');
+      }
+
+      // Event listeners
+      jsonFormatBtn.addEventListener('click', formatJSON);
+      jsonMinifyBtn.addEventListener('click', () => {
+        // Minify sets indent to 'none'
+        jsonIndent.value = 'none';
+        jsonSortKeys.checked = false;
+        formatJSON();
+      });
+      jsonCopyBtn.addEventListener('click', copyOutput);
+      jsonClearBtn.addEventListener('click', clearOutput);
+      jsonSwapBtn.addEventListener('click', swapInputOutput);
+      jsonDownloadBtn.addEventListener('click', downloadOutput);
+      jsonExampleBtn.addEventListener('click', loadExample);
+
+      // Live format on type (debounced)
+      let formatTimeout;
+      jsonInput.addEventListener('input', () => {
+        clearTimeout(formatTimeout);
+        formatTimeout = setTimeout(formatJSON, 300);
+      });
+
+      // Keyboard shortcut: Ctrl+Enter to format
+      jsonInput.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          formatJSON();
+        }
+      });
+
+      // Initialize: load example on first visit if no localStorage preference
+      if (!localStorage.getItem('json-example-loaded')) {
+        loadExample();
+        localStorage.setItem('json-example-loaded', 'true');
+      }
+    });
+  </script>
+</body>
+</html>

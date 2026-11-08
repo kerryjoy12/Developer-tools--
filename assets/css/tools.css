@@ -1,0 +1,300 @@
+/**
+ * DevTools Hub - Tool Specific Stylesheet
+ * Split pane editor, toolbars, options panels, tree view, query parameter tables.
+ */
+
+.tool-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 1.5rem 0 2.5rem;
+}
+
+/* Tool Toolbar & Option Controls */
+.tool-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--surface-1);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  flex-wrap: wrap;
+}
+.control-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.control-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.select-input,
+.text-input {
+  background-color: var(--surface-2);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: var(--radius-sm);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+}
+.select-input:focus,
+.text-input:focus {
+  border-color: var(--focus-ring);
+  outline: none;
+}
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Editor Panes: Two-column Responsive Layout */
+.editor-panes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  min-height: 480px;
+}
+@media (max-width: 840px) {
+  .editor-panes {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pane {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--surface-1);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.pane-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background-color: var(--surface-2);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.pane-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pane-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pane-body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+}
+
+/* Textareas */
+.editor-textarea {
+  width: 100%;
+  flex: 1;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-color);
+  background-color: var(--surface-1);
+  border: none;
+  resize: vertical;
+  min-height: 380px;
+  outline: none;
+  white-space: pre;
+  tab-size: 2;
+}
+.editor-textarea[readonly] {
+  background-color: var(--surface-2);
+  cursor: text;
+}
+
+/* Drag & Drop Overlay */
+.drop-zone {
+  position: relative;
+}
+.drop-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(37, 99, 235, 0.08);
+  border: 2px dashed var(--primary-color);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--primary-color);
+  z-index: 10;
+  pointer-events: none;
+}
+.drop-zone.dragover .drop-overlay {
+  display: flex;
+}
+
+/* Status Bar below Pane */
+.pane-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background-color: var(--surface-2);
+  border-top: 1px solid var(--border-color);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+.stat-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.stat-pill.success { color: var(--success-color); }
+.stat-pill.error { color: var(--error-color); }
+.stat-pill.warning { color: var(--warning-color); }
+
+/* Tree View for JSON */
+.tree-view {
+  flex: 1;
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow: auto;
+  background-color: var(--surface-1);
+  display: none;
+}
+.tree-view.active {
+  display: block;
+}
+.tree-node {
+  margin-left: 1.25rem;
+}
+.tree-toggle {
+  cursor: pointer;
+  user-select: none;
+  display: inline-block;
+  width: 14px;
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: bold;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+}
+.tree-key { color: #8b5cf6; font-weight: 600; }
+.tree-string { color: #16a34a; }
+.tree-number { color: #2563eb; }
+.tree-boolean { color: #d97706; }
+.tree-null { color: #94a3b8; font-style: italic; }
+[data-theme="dark"] .tree-key { color: #a78bfa; }
+[data-theme="dark"] .tree-string { color: #4ade80; }
+[data-theme="dark"] .tree-number { color: #60a5fa; }
+[data-theme="dark"] .tree-boolean { color: #fbbf24; }
+
+/* Query String Table (URL Encoder) */
+.query-table-container {
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+.query-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.query-table th,
+.query-table td {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border-color);
+  text-align: left;
+}
+.query-table th {
+  background-color: var(--surface-2);
+  font-weight: 600;
+}
+.query-table input {
+  width: 100%;
+  padding: 0.35rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background-color: var(--surface-1);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  border-radius: var(--radius-sm);
+}
+
+/* UUID Controls */
+.uuid-config-panel {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  background: var(--surface-1);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* File to Base64 drop panel */
+.file-upload-box {
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+  background-color: var(--surface-2);
+}
+.file-upload-box:hover,
+.file-upload-box.dragover {
+  border-color: var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+/* Image Data URI Preview */
+.data-uri-preview {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  margin-top: 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background-image: repeating-linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%, #ccc), repeating-linear-gradient(45deg, #ccc 25%, #fff 25%, #fff 75%, #ccc 75%, #ccc);
+  background-position: 0 0, 9px 9px;
+  background-size: 18px 18px;
+}
+
+/* Keyboard shortcuts reference pill */
+.shortcut-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.shortcut-badge kbd {
+  background: var(--surface-3);
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
