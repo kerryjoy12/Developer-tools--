@@ -96,38 +96,44 @@
           Compress HTML documents by stripping comments and redundant whitespace while strictly preserving preformatted code inside <code><pre></code>, <code><textarea></code>, and <code><script></code> tags.
         </p>
 
-        <!-- Control Buttons -->
-        <div style="max-width: 500px; margin: 0 auto 2rem; gap: 0.75rem; justify-content: center;">
-          <button id="html-copy-btn" class="btn btn-outline" style="min-width: 140px;">Copy Output</button>
-          <button id="html-clear-btn" class="btn btn-outline" style="min-width: 140px;">Clear</button>
-          <button id="html-swap-btn" class="btn btn-outline" style="min-width: 140px;">Swap</button>
-          <button id="html-download-btn" class="btn btn-primary" style="min-width: 140px;">Download .html</button>
-          <button id="html-example-btn" class="btn btn-secondary" style="min-width: 140px;">Load Example</button>
-        </div>
       </div>
     </section>
 
     <section class="container" style="padding: 3.5rem 0;">
-      <div class="tool-grid">
-        <article class="tool-card" data-keywords="html minifier compress speed optimization cleanup">
-          <div class="tool-card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-          </div>
-          <h3>HTML Minifier</h3>
-          <p>Compress production HTML documents by stripping comments and redundant whitespace while strictly preserving preformatted code inside <pre>, <textarea>, and <script> tags.</p>
-          <a href="#" class="btn btn-primary" style="margin-top: 0.5rem;">Open HTML Tool</a>
-        </article>
-      </div>
-
       <!-- HTML Tool UI -->
-      <article class="tool-card" style="margin-top: 2.5rem;">
-        <div class="tool-card-icon" style="margin-bottom: 1rem;">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <article class="tool-card" style="margin-top: 2rem;">
+
+        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Options:</label>
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <input type="checkbox" id="html-remove-comments" checked style="accent-color: var(--primary-color); margin-right: 0.25rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Comments</label>
+            <input type="checkbox" id="html-collapse-whitespace" checked style="accent-color: var(--primary-color); margin-right: 0.25rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Whitespace</label>
+            <input type="checkbox" id="html-remove-optional-tags" style="accent-color: var(--primary-color); margin-right: 0.25rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Optional tags</label>
+            <input type="checkbox" id="html-remove-quotes" style="accent-color: var(--primary-color); margin-right: 0.25rem;">
+            <label style="font-size: 0.85rem; color: var(--text-muted);">Quotes</label>
+          </div>
         </div>
 
-        <div class="code-block" id="html-input-container" style="flex: 1; margin-bottom: 1rem;">
-          <textarea id="html-input" rows="10" cols="80" 
-                    style="width: 100%; height: 100%; padding: 0.75rem; font-family: var(--font-mono); font-size: 0.95rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical;"
+        <!-- Result Actions -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
+          <button id="html-copy-btn" class="btn btn-outline" style="min-width: 110px;">Copy Output</button>
+          <button id="html-clear-btn" class="btn btn-outline" style="min-width: 110px;">Clear</button>
+          <button id="html-swap-btn" class="btn btn-outline" style="min-width: 110px;">Swap</button>
+          <button id="html-download-btn" class="btn btn-primary" style="min-width: 110px;">Download .html</button>
+          <button id="html-example-btn" class="btn btn-secondary" style="min-width: 110px;">Load Example</button>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <button id="html-minify-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Minify HTML</button>
+          <button id="html-format-btn" class="btn btn-outline" style="flex: 1; min-width: 120px;">Format HTML</button>
+        </div>
+
+        <div class="code-block" id="html-input-container" style="flex: 1; margin-bottom: 1rem; min-height: 220px;">
+          <textarea id="html-input" rows="14" 
+                    style="width: 100%; min-height: 220px; padding: 1rem; font-family: var(--font-mono); font-size: 0.9rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical; line-height: 1.6;"
                     placeholder="Paste HTML here or load an example..."><!DOCTYPE html>
 <html lang="en">
   <head>

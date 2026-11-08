@@ -96,14 +96,6 @@
           Beautify, validate, and minify JSON data instantly. Pinpoint syntax errors with exact line and column numbers, sort keys alphabetically, and inspect structures with an interactive tree view.
         </p>
 
-        <!-- Control Buttons -->
-        <div style="max-width: 500px; margin: 0 auto 2rem; gap: 0.75rem; justify-content: center;">
-          <button id="json-copy-btn" class="btn btn-outline" style="min-width: 140px;">Copy Output</button>
-          <button id="json-clear-btn" class="btn btn-outline" style="min-width: 140px;">Clear</button>
-          <button id="json-swap-btn" class="btn btn-outline" style="min-width: 140px;">Swap</button>
-          <button id="json-download-btn" class="btn btn-primary" style="min-width: 140px;">Download .json</button>
-          <button id="json-example-btn" class="btn btn-secondary" style="min-width: 140px;">Load Example</button>
-        </div>
       </div>
     </section>
 
@@ -125,12 +117,6 @@
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M3 9l9 6l9-4"/><path d="M3 15l9 6l9-4"/></svg>
         </div>
 
-        <div class="code-block" id="json-input-container" style="flex: 1; margin-bottom: 1rem;">
-          <textarea id="json-input" rows="10" cols="80" 
-                    style="width: 100%; height: 100%; padding: 0.75rem; font-family: var(--font-mono); font-size: 0.95rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical;"
-                    placeholder="Paste JSON here or load an example...">&nbsp;</textarea>
-        </div>
-
         <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
           <label style="font-size: 0.85rem; color: var(--text-muted);">Indent:</label>
           <select id="json-indent" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
@@ -144,9 +130,25 @@
           <span style="font-size: 0.75rem; color: var(--text-muted);">(alphabetical)</span>
         </div>
 
-        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+        <!-- Action Buttons: Format / Minify -->
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 0.5rem; align-items: center; flex-wrap: wrap;">
           <button id="json-format-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Format JSON</button>
           <button id="json-minify-btn" class="btn btn-outline" style="flex: 1; min-width: 120px;">Minify JSON</button>
+        </div>
+
+        <!-- Result Actions: Copy / Clear / Swap / Download / Load Example -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
+          <button id="json-copy-btn" class="btn btn-outline" style="min-width: 110px;">Copy Output</button>
+          <button id="json-clear-btn" class="btn btn-outline" style="min-width: 110px;">Clear</button>
+          <button id="json-swap-btn" class="btn btn-outline" style="min-width: 110px;">Swap</button>
+          <button id="json-download-btn" class="btn btn-primary" style="min-width: 110px;">Download .json</button>
+          <button id="json-example-btn" class="btn btn-secondary" style="min-width: 110px;">Load Example</button>
+        </div>
+
+        <div class="code-block" id="json-input-container" style="flex: 1; margin-bottom: 1rem; min-height: 220px;">
+          <textarea id="json-input" rows="14" 
+                    style="width: 100%; min-height: 220px; padding: 1rem; font-family: var(--font-mono); font-size: 0.9rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical; line-height: 1.6;"
+                    placeholder="Paste JSON here or load an example..."></textarea>
         </div>
 
         <div id="json-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">

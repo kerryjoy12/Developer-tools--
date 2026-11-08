@@ -96,35 +96,415 @@
           Encode query parameters safely using encodeURIComponent or entire URLs via encodeURI. Includes an interactive visual query string parser to edit and rebuild parameters on the fly.
         </p>
 
-        <!-- Control Buttons -->
-        <div style="max-width: 500px; margin: 0 auto 2rem; gap: 0.75rem; justify-content: center;">
-          <button id="url-copy-btn" class="btn btn-outline" style="min-width: 140px;">Copy Output</button>
-          <button id="url-clear-btn" class="btn btn-outline" style="min-width: 140px;">Clear</button>
-          <button id="url-swap-btn" class="btn btn-outline" style="min-width: 140px;">Swap</button>
-          <button id="url-download-btn" class="btn btn-primary" style="min-width: 140px;">Download .txt</button>
-          <button id="url-example-btn" class="btn btn-secondary" style="min-width: 140px;">Load Example</button>
-        </div>
       </div>
     </section>
 
     <section class="container" style="padding: 3.5rem 0;">
-      <div class="tool-grid">
-        <article class="tool-card" data-keywords="url encoder decoder query string parser encodeuricomponent percent">
-          <div class="tool-card-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-          </div>
-          <h3>URL Encoder / Decoder</h3>
-          <p>Encode query parameters safely using encodeURIComponent or entire URLs via encodeURI. Includes an interactive visual query string parser to edit and rebuild parameters on the fly.</p>
-          <a href="#" class="btn btn-primary" style="margin-top: 0.5rem;">Open URL Tool</a>
-        </article>
-      </div>
-
       <!-- URL Tool UI -->
-      <article class="tool-card" style="margin-top: 2.5rem;">
-        <div class="tool-card-icon" style="margin-bottom: 1rem;">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <article class="tool-card" style="margin-top: 2rem;">
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <label style="font-size: 0.85rem; color: var(--text-muted);">Mode:</label>
+          <select id="url-mode" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <option value="component">Component (encodeURIComponent)</option>
+            <option value="full">Full URL (encodeURI)</option>
+          </select>
         </div>
 
-        <div class="code-block" id="url-input-container" style="flex: 1; margin-bottom: 1rem;">
-          <textarea id="url-input" rows="8" cols="80" 
-                    style="width: 100%; height: 100%; padding: 0.75rem; font-family: var(--font-mono); font-size: 0.95rem; border: 1px solid var(--border-color); border-radi
+        <!-- Result Actions -->
+        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
+          <button id="url-copy-btn" class="btn btn-outline" style="min-width: 110px;">Copy Output</button>
+          <button id="url-clear-btn" class="btn btn-outline" style="min-width: 110px;">Clear</button>
+          <button id="url-swap-btn" class="btn btn-outline" style="min-width: 110px;">Swap</button>
+          <button id="url-download-btn" class="btn btn-primary" style="min-width: 110px;">Download .txt</button>
+          <button id="url-example-btn" class="btn btn-secondary" style="min-width: 110px;">Load Example</button>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+          <button id="url-process-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Encode / Decode</button>
+        </div>
+
+        <div class="code-block" id="url-input-container" style="flex: 1; margin-bottom: 1rem; min-height: 220px;">
+          <textarea id="url-input" rows="14" 
+                    style="width: 100%; min-height: 220px; padding: 1rem; font-family: var(--font-mono); font-size: 0.9rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical; line-height: 1.6;"
+                    placeholder="Enter URL or text..."></textarea>
+        </div>
+
+        <div class="code-block" id="url-output-container" style="flex: 1; margin-bottom: 1rem; min-height: 220px;">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+            <span>Output:</span>
+            <span id="url-output-status">Ready</span>
+          </div>
+          <pre><code id="url-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color); display: block; white-space: pre-wrap; word-break: break-all;"></code></pre>
+        </div>
+
+        <!-- Query String Parser -->
+        <div id="url-query-section" style="margin-top: 1.5rem; display: none;">
+          <h3 style="font-size: 1rem; margin-bottom: 0.75rem; color: var(--text-color);">Query Parameters</h3>
+          <div id="url-query-table" class="query-table-container"></div>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+            <button id="url-parse-btn" class="btn btn-outline btn-sm" style="min-width: 100px;">Re-parse</button>
+            <button id="url-rebuild-btn" class="btn btn-outline btn-sm" style="min-width: 100px;">Rebuild URL</button>
+          </div>
+        </div>
+      </article>
+
+      <!-- Usage Guide -->
+      <section class="editorial-content" style="margin-top: 3rem; max-width: 900px;">
+        <h2>How to Use the URL Encoder / Decoder</h2>
+
+        <h3>Step 1: Enter Your URL or Text</h3>
+        <p>Type or paste a URL, query string, or any text into the input textarea. The tool handles everything from full URLs with multiple query parameters to individual path segments or plain text strings.</p>
+
+        <h3>Step 2: Choose Encoding Mode</h3>
+        <p>Select the encoding mode that matches your use case:</p>
+        <ul>
+          <li><strong>Component mode (encodeURIComponent):</strong> Encodes every special character including <code>/</code>, <code>:</code>, <code>?</code>, <code>=</code>, and <code>&amp;</code>. Use this for encoding individual URL components like query parameter values. For example, a space becomes <code>%20</code> and an ampersand becomes <code>%26</code>.</li>
+          <li><strong>Full URL mode (encodeURI):</strong> Preserves URL structural characters like <code>:</code>, <code>/</code>, <code>?</code>, <code>=</code>, and <code>&amp;</code>. Only characters that are unsafe within a URL are encoded. Use this when you have a complete URL and want to keep its structure intact while encoding unsafe characters.</li>
+        </ul>
+
+        <h3>Step 3: Encode or Decode</h3>
+        <p>Click <strong>"Encode / Decode"</strong> to process the input. The tool automatically detects whether the input is already encoded (contains percent-encoded sequences like <code>%20</code>) and decodes it; otherwise it encodes it. You can also use <strong>Ctrl + Enter</strong> to trigger processing.</p>
+
+        <h3>Step 4: Inspect and Edit Query Parameters</h3>
+        <p>If the input is a URL with query parameters, the tool displays an interactive table showing each parameter name and value. You can edit parameters directly in the table, add new ones, or remove existing ones. Click <strong>"Rebuild URL"</strong> to generate a new URL from the modified parameters.</p>
+
+        <h3>Step 5: Copy, Download, or Load Example</h3>
+        <ul>
+          <li><strong>Copy Output:</strong> Copies the encoded or decoded result to your clipboard. The keyboard shortcut <strong>Ctrl + Enter</strong> processes the input.</li>
+          <li><strong>Download .txt:</strong> Saves the output as a plain text file named <code>url-output.txt</code>.</li>
+          <li><strong>Load Example:</strong> Populates the input with a realistic URL containing multiple query parameters with special characters, demonstrating both encoding modes.</li>
+        </ul>
+
+        <h3>Under the Hood</h3>
+        <p>The URL encoder uses the browser's native <code>encodeURIComponent()</code> and <code>encodeURI()</code> functions, which implement standard percent-encoding per RFC 3986. The decoder uses <code>decodeURIComponent()</code> and <code>decodeURI()</code> respectively. The query string parser splits on <code>&amp;</code> to separate parameters, then splits each parameter on the first <code>=</code> to separate name and value. All processing happens entirely in your browser—no URLs or data are ever uploaded to a server.</p>
+
+        <h3>Common Errors and Fixes</h3>
+        <dl>
+          <dt><strong>"URIError: malformed URI sequence"</strong></dt>
+          <dd>This occurs when trying to decode a string that contains invalid percent-encoding (e.g., <code>%ZZ</code> where ZZ is not a valid hex value). Ensure your encoded input uses valid hexadecimal sequences.</dd>
+
+          <dt><strong>Output looks wrong for full URLs</strong></dt>
+          <dd>If you use Component mode on a full URL, characters like <code>/</code>, <code>:</code>, and <code>?</code> will be encoded, breaking the URL structure. Switch to Full URL mode to preserve the URL's structural characters.</dd>
+
+          <dt><strong>Double encoding</strong></dt>
+          <dd>If you encode already-encoded text, the percent signs themselves get encoded (<code>%20</code> becomes <code>%2520</code>). The tool attempts to detect this and decode first, but for complex cases you may need to manually decode first.</dd>
+        </dl>
+
+        <h3>Use Cases</h3>
+        <ul>
+          <li><strong>API query building:</strong> Safely encode user-supplied search terms, filters, and parameters before constructing API URLs.</li>
+          <li><strong>Debugging encoded URLs:</strong> Decode percent-encoded URLs from browser addresses, server logs, or analytics to read the original values.</li>
+          <li><strong>Form data preparation:</strong> Encode individual form fields before appending them to a query string for GET requests.</li>
+          <li><strong>Link sharing:</strong> Encode URLs with special characters so they work correctly in emails, social media, and chat applications.</li>
+        </ul>
+
+        <h3>5-Question FAQ</h3>
+        <dl class="faq-item">
+          <dt class="faq-question">What's the difference between encodeURI and encodeURIComponent?</dt>
+          <dd class="faq-answer"><p><code>encodeURI</code> preserves characters that have special meaning in a URL structure (<code>:</code>, <code>/</code>, <code>?</code>, <code>#</code>, <code>&amp;</code>, <code>=</code>). <code>encodeURIComponent</code> encodes almost everything including those characters. Use <code>encodeURIComponent</code> for individual URL components like parameter values, and <code>encodeURI</code> for complete URLs.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Does this handle international characters and emoji?</dt>
+          <dd class="faq-answer"><p>Yes. Both <code>encodeURI</code> and <code>encodeURIComponent</code> handle Unicode characters by encoding them as UTF-8 byte sequences with percent-encoding. For example, the character <code>é</code> becomes <code>%C3%A9</code>, and emoji are encoded as multi-byte sequences.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Can I encode a URL that's already partially encoded?</dt>
+          <dd class="faq-answer"><p>The tool attempts to detect already-encoded content and will decode it instead. However, for URLs with mixed encoded and unencoded content, you may get unexpected results. For best results, decode first if you're unsure of the current state.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Why does my encoded URL have so many percent signs?</dt>
+          <dd><p>This is normal percent-encoding. Each special character gets replaced with a <code>%</code> followed by two hexadecimal digits representing its byte value. For example, a space becomes <code>%20</code> (ASCII 32 = 0x20). This is how URLs safely transmit characters that are not allowed in URL syntax.</p></dd>
+        </dl>
+
+        <dl class="faq-item">
+          <dt class="faq-question">Is the encoded output safe to use in a browser address bar?</dt>
+          <dd class="faq-answer"><p>Yes. The output uses standard percent-encoding that all browsers and servers understand. Copy the encoded URL directly into a browser's address bar and it will work correctly. The query parameter parser also lets you edit parameters visually and rebuild the URL.</p></dd>
+        </dl>
+      </section>
+    </section>
+  </main>
+
+  <!-- Global Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>DevTools Hub</h4>
+          <p style="color:var(--text-muted); font-size:0.9rem; line-height:1.6; margin-bottom:1rem;">
+            Free, browser-based utilities. Text and files are processed on this device with no account required.
+          </p>
+          <p style="font-size:0.85rem; color:var(--accent-color); font-weight:600;">🔒 Your data never leaves your browser.</p>
+        </div>
+        <div class="footer-column">
+          <h4>Developer Tools</h4>
+          <ul>
+            <li><a href="/tools/json-formatter.html">JSON Formatter & Validator</a></li>
+            <li><a href="/tools/html-minifier.html">HTML Minifier</a></li>
+            <li><a href="/tools/css-beautifier.html">CSS Beautifier & Minifier</a></li>
+            <li><a href="/tools/base64-encoder.html">Base64 Encoder / Decoder</a></li>
+            <li><a href="/tools/url-encoder.html">URL Encoder / Decoder</a></li>
+            <li><a href="/tools/uuid-generator.html">UUID Generator (v4 & v7)</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Engineering Blog</h4>
+          <ul>
+            <li><a href="/blog/what-is-json-common-errors.html">JSON Syntax & Errors Guide</a></li>
+            <li><a href="/blog/base64-encoding-explained.html">Base64 Architecture & UTF-8</a></li>
+            <li><a href="/blog/encodeuri-vs-encodeuricomponent.html">encodeURI vs encodeURIComponent</a></li>
+            <li><a href="/blog/why-minify-html-css-page-speed.html">Why Minify HTML & CSS?</a></li>
+            <li><a href="/blog/uuid-v4-vs-v7-database-keys.html">UUID v4 vs v7 for Databases</a></li>
+            <li><a href="/blog/">View All 8 Articles →</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Trust & Legal</h4>
+          <ul>
+            <li><a href="/about.html">About & Editorial Standards</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="/terms-of-service.html">Terms of Service</a></li>
+            <li><a href="/disclaimer.html">Disclaimer</a></li>
+            <li><a href="/cookie-policy.html">Cookie Policy</a></li>
+            <li><a href="/tests/tool-tests.html">Automated Test Suite</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>&copy; 2026 DevTools Hub. All rights reserved. Free and open client-side utilities.</span>
+        <span>Hosted securely on GitHub Pages with HTTPS.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-consent-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Cookie and Privacy Consent">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        <strong>Privacy & Cookie Consent:</strong> We strictly respect your privacy. DevTools Hub never logs or uploads your payloads to servers. We use basic cookies and local storage only to remember your theme and indentation preferences and to serve non-intrusive advertisements. Learn more in our <a href="/privacy-policy.html">Privacy Policy</a> and <a href="/cookie-policy.html">Cookie Policy</a>.
+      </div>
+      <div class="cookie-actions">
+        <button id="cookie-accept-btn" class="btn btn-primary btn-sm">Accept All</button>
+        <button id="cookie-reject-btn" class="btn btn-outline btn-sm">Reject Non-Essential</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/core-tools.js"></script>
+  <script src="/assets/js/app.js"></script>
+  <script>
+    // URL Encoder/Decoder Specific Logic
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlInput = document.getElementById('url-input');
+      const urlMode = document.getElementById('url-mode');
+      const urlProcessBtn = document.getElementById('url-process-btn');
+      const urlOutput = document.getElementById('url-output');
+      const urlOutputContainer = document.getElementById('url-output-container');
+      const urlOutputStatus = document.getElementById('url-output-status');
+      const urlQuerySection = document.getElementById('url-query-section');
+      const urlQueryTable = document.getElementById('url-query-table');
+      const urlParseBtn = document.getElementById('url-parse-btn');
+      const urlRebuildBtn = document.getElementById('url-rebuild-btn');
+      const urlCopyBtn = document.getElementById('url-copy-btn');
+      const urlClearBtn = document.getElementById('url-clear-btn');
+      const urlSwapBtn = document.getElementById('url-swap-btn');
+      const urlDownloadBtn = document.getElementById('url-download-btn');
+      const urlExampleBtn = document.getElementById('url-example-btn');
+
+      // Example URL with query parameters
+      const exampleUrl = 'https://example.com/search?q=hello world&category=web dev&page=1&filters=%7B%22sort%22%3A%22newest%22%7D';
+
+      // Process URL
+      function processURL() {
+        const input = urlInput.value.trim();
+        const mode = urlMode.value;
+
+        if (!input) {
+          showStatus('Please enter a URL or text.', 'error');
+          return;
+        }
+
+        try {
+          let isEncoded = /%[0-9A-Fa-f]{2}/.test(input);
+          let result;
+
+          if (isEncoded && !/https?:///i.test(input)) {
+            // Likely encoded text - decode it
+            if (mode === 'component') {
+              result = decodeURIComponent(input);
+            } else {
+              result = decodeURI(input);
+            }
+            urlOutputStatus.textContent = 'Decoded';
+          } else {
+            // Encode it
+            if (mode === 'component') {
+              result = encodeURIComponent(input);
+            } else {
+              result = encodeURI(input);
+            }
+            urlOutputStatus.textContent = 'Encoded';
+          }
+
+          urlOutput.textContent = result;
+          urlOutputContainer.style.display = 'block';
+          showStatus(urlOutputStatus.textContent, 'success');
+
+          // Parse query parameters if it's a URL
+          parseQueryParams(result);
+        } catch (err) {
+          showStatus('Error: ' + err.message, 'error');
+        }
+      }
+
+      // Show status
+      function showStatus(message, type) {
+        urlOutputStatus.textContent = message;
+        urlOutputStatus.style.color = type === 'error' ? 'var(--error-color)' : 'var(--success-color)';
+      }
+
+      // Parse query parameters from URL
+      function parseQueryParams(urlText) {
+        const urlObj = new URL(urlText);
+        const params = urlObj.searchParams;
+
+        if (params.toString()) {
+          urlQuerySection.style.display = 'block';
+          let html = '<table class="query-table"><thead><tr><th>#</th><th>Parameter Name</th><th>Value</th><th>Action</th></tr></thead><tbody>';
+          let i = 1;
+          for (const [key, value] of params.entries()) {
+            html += `<tr>
+              <td>${i}</td>
+              <td><input type="text" class="query-key" value="${escapeHtml(key)}" placeholder="Parameter name"></td>
+              <td><input type="text" class="query-value" value="${escapeHtml(value)}" placeholder="Value"></td>
+              <td><button class="btn btn-outline btn-sm query-remove" data-index="${i}" style="min-width:60px;">Remove</button></td>
+            </tr>`;
+            i++;
+          }
+          html += '</tbody></table>';
+          urlQueryTable.innerHTML = html;
+
+          // Add event listeners to remove buttons
+          document.querySelectorAll('.query-remove').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const row = btn.closest('tr');
+              row.remove();
+            });
+          });
+        } else {
+          urlQuerySection.style.display = 'none';
+        }
+      }
+
+      // Rebuild URL from parsed parameters
+      function rebuildURL() {
+        const inputs = urlQueryTable.querySelectorAll('tr');
+        const params = new URLSearchParams();
+
+        inputs.forEach(row => {
+          const keyInput = row.querySelector('.query-key');
+          const valueInput = row.querySelector('.query-value');
+          if (keyInput && valueInput && keyInput.value.trim()) {
+            params.set(keyInput.value.trim(), valueInput.value.trim());
+          }
+        });
+
+        try {
+          const baseUrl = new URL(urlInput.value.trim());
+          baseUrl.search = params.toString();
+          urlInput.value = baseUrl.toString();
+          urlInput.focus();
+          showToast('URL rebuilt with ' + params.size + ' parameter(s)', 'success');
+        } catch (err) {
+          showToast('Could not rebuild URL. Enter a valid URL first.', 'error');
+        }
+      }
+
+      // Escape HTML for safe display
+      function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      // Copy to clipboard
+      async function copyOutput() {
+        const output = urlOutput.textContent || '';
+        if (!output) {
+          showToast('Nothing to copy.', 'error');
+          return;
+        }
+        await DevToolsApp.copyText(output);
+      }
+
+      // Clear input and output
+      function clearOutput() {
+        urlInput.value = '';
+        urlOutput.textContent = '';
+        urlOutputContainer.style.display = 'none';
+        urlQuerySection.style.display = 'none';
+        urlOutputStatus.textContent = 'Ready';
+        urlOutputStatus.style.color = '';
+      }
+
+      // Swap input and output
+      function swapInputOutput() {
+        const inputVal = urlInput.value;
+        urlInput.value = urlOutput.textContent || '';
+        urlOutput.textContent = inputVal;
+      }
+
+      // Download output
+      function downloadOutput() {
+        const output = urlOutput.textContent || '';
+        if (!output) {
+          showToast('No output to download.', 'error');
+          return;
+        }
+        DevToolsApp.downloadFile(output, 'url-output.txt', 'text/plain;charset=utf-8');
+      }
+
+      // Load example
+      function loadExample() {
+        urlInput.value = exampleUrl;
+        urlInput.focus();
+        showToast('Example URL loaded', 'success');
+      }
+
+      // Event listeners
+      urlProcessBtn.addEventListener('click', processURL);
+      urlCopyBtn.addEventListener('click', copyOutput);
+      urlClearBtn.addEventListener('click', clearOutput);
+      urlSwapBtn.addEventListener('click', swapInputOutput);
+      urlDownloadBtn.addEventListener('click', downloadOutput);
+      urlExampleBtn.addEventListener('click', loadExample);
+      urlRebuildBtn.addEventListener('click', rebuildURL);
+
+      // Live process on type (debounced)
+      let processTimeout;
+      urlInput.addEventListener('input', () => {
+        clearTimeout(processTimeout);
+        processTimeout = setTimeout(processURL, 300);
+      });
+
+      // Keyboard shortcut: Ctrl+Enter to process
+      urlInput.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          processURL();
+        }
+      });
+
+      // Initialize: load example on first visit
+      if (!localStorage.getItem('url-example-loaded')) {
+        loadExample();
+        localStorage.setItem('url-example-loaded', 'true');
+      }
+    });
+  </script>
+</body>
+</html>
