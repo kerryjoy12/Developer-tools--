@@ -118,44 +118,37 @@
         </div>
 
         <!-- Result Actions -->
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
-          <button id="css-copy-btn" class="btn btn-outline" style="min-width: 110px;">Copy Output</button>
-          <button id="css-clear-btn" class="btn btn-outline" style="min-width: 110px;">Clear</button>
-          <button id="css-swap-btn" class="btn btn-outline" style="min-width: 110px;">Swap</button>
-          <button id="css-download-btn" class="btn btn-primary" style="min-width: 110px;">Download .css</button>
-          <button id="css-theme-btn" class="btn btn-secondary" style="min-width: 110px;">Toggle Theme Mode</button>
-        </div>
 
-        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
-          <label style="font-size: 0.85rem; color: var(--text-muted);">Indent:</label>
-          <select id="css-indent" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
-            <option value="2">2 spaces</option>
-            <option value="4">4 spaces</option>
-            <option value="tab">Tab</option>
-            <option value="none">None (minify)</option>
-          </select>
-          <label style="font-size: 0.85rem; color: var(--text-muted);">Mode:</label>
-          <select id="css-mode" style="padding: 0.4rem 0.75rem; font-size: 0.85rem; border-radius: var(--radius-sm); border: 1px solid var(--border-color); margin-left: 0.5rem;">
-            <option value="beautify">Beautify</option>
-            <option value="minify">Minify</option>
-          </select>
-        </div>
+         <!-- Input Area -->
+         <div class="code-block" id="css-input-container" style="margin-bottom: 1rem; min-height: 320px;">           <textarea id="css-input" rows="16" 
+                      style="width: 100%; min-height: 320px; padding: 1rem; font-family: var(--font-mono); font-size: 0.9rem; border: 1px solid var(--border-color); border-radius: var(--radius-md); resize: vertical; line-height: 1.6;"
+                      placeholder="Paste your CSS here..."></textarea>
+         </div>
 
-        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
-          <button id="css-go-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Process CSS</button>
-        </div>
+         <!-- Action Buttons -->
+         <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+           <button id="css-go-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Process CSS</button>
+           <button id="css-example-btn" class="btn btn-outline" style="flex: 1; min-width: 120px;">Load Example</button>
+         </div>
 
-        <div id="css-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-            <span>Output:</span>
-            <span id="css-output-status">Ready</span>
+         <!-- Result Actions -->
+         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
+           <button id="css-copy-btn" class="btn btn-outline" style="min-width: 110px;">Copy Output</button>
+           <button id="css-clear-btn" class="btn btn-outline" style="min-width: 110px;">Clear</button>
+           <button id="css-swap-btn" class="btn btn-outline" style="min-width: 110px;">Swap</button>
+           <button id="css-download-btn" class="btn btn-primary" style="min-width: 110px;">Download .css</button>
+         </div>          <!-- Output Area -->
+          <div id="css-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+              <span>Output:</span>
+              <span id="css-output-status">Ready</span>
+            </div>
+            <pre><code id="css-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color);"></code></pre>
           </div>
-          <pre><code id="css-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color);"></code></pre>
-        </div>
 
-        <div id="css-error-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem; border-left: 3px solid var(--error-color);">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-            <span>Error:</span>
+          <div id="css-error-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem; border-left: 3px solid var(--error-color);">
+            <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+              <span>Error:</span>
             <span id="css-error-status">Fix the input above.</span>
           </div>
           <pre><code id="css-error" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--error-color);"></code></pre>

@@ -115,21 +115,20 @@
             <input type="checkbox" id="html-remove-quotes" style="accent-color: var(--primary-color); margin-right: 0.25rem;">
             <label style="font-size: 0.85rem; color: var(--text-muted);">Quotes</label>
           </div>
-        </div>
+        </div>         <!-- Action Buttons -->
+         <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
+           <button id="html-minify-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Minify HTML</button>
+           <button id="html-format-btn" class="btn btn-outline" style="flex: 1; min-width: 120px;">Format HTML</button>
+         </div>
 
-        <!-- Result Actions -->
-        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
-          <button id="html-copy-btn" class="btn btn-outline" style="min-width: 110px;">Copy Output</button>
-          <button id="html-clear-btn" class="btn btn-outline" style="min-width: 110px;">Clear</button>
-          <button id="html-swap-btn" class="btn btn-outline" style="min-width: 110px;">Swap</button>
-          <button id="html-download-btn" class="btn btn-primary" style="min-width: 110px;">Download .html</button>
-          <button id="html-example-btn" class="btn btn-secondary" style="min-width: 110px;">Load Example</button>
-        </div>
-
-        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
-          <button id="html-minify-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Minify HTML</button>
-          <button id="html-format-btn" class="btn btn-outline" style="flex: 1; min-width: 120px;">Format HTML</button>
-        </div>
+         <!-- Result Actions -->
+         <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-bottom: 1.5rem;">
+           <button id="html-copy-btn" class="btn btn-outline" style="min-width: 110px;">Copy Output</button>
+           <button id="html-clear-btn" class="btn btn-outline" style="min-width: 110px;">Clear</button>
+           <button id="html-swap-btn" class="btn btn-outline" style="min-width: 110px;">Swap</button>
+           <button id="html-download-btn" class="btn btn-primary" style="min-width: 110px;">Download .html</button>
+           <button id="html-example-btn" class="btn btn-secondary" style="min-width: 110px;">Load Example</button>
+         </div>
 
         <div class="code-block" id="html-input-container" style="flex: 1; margin-bottom: 1rem; min-height: 220px;">
           <textarea id="html-input" rows="14" 
@@ -155,44 +154,24 @@ function hello() {
       body { color: black; }
     </style>
   </body>
-</html></textarea>
-        </div>
+</html></textarea>       </div>
 
-        <div style="display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
-          <label style="font-size: 0.85rem; color: var(--text-muted);">Options:</label>
-          <div style="display: flex; align-items: center; gap: 1rem;">
-            <input type="checkbox" id="html-remove-comments" checked style="accent-color: var(--primary-color); margin-right: 0.5rem;">
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Remove comments</label>
-            <input type="checkbox" id="html-collapse-whitespace" checked style="accent-color: var(--primary-color); margin-right: 0.5rem;">
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Collapse whitespace</label>
-            <input type="checkbox" id="html-remove-optional-tags" style="accent-color: var(--primary-color); margin-right: 0.5rem;">
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Remove optional tags</label>
-            <input type="checkbox" id="html-remove-quotes" style="accent-color: var(--primary-color); margin-right: 0.5rem;">
-            <label style="font-size: 0.85rem; color: var(--text-muted);">Remove quotes</label>
-          </div>
-        </div>
+         <div id="html-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">
+           <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+             <span>Output:</span>
+             <span id="html-output-status">Ready</span>
+           </div>
+           <pre><code id="html-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color);"></code></pre>
+         </div>
 
-        <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; align-items: center; flex-wrap: wrap;">
-          <button id="html-minify-btn" class="btn btn-primary" style="flex: 1; min-width: 120px;">Minify HTML</button>
-          <button id="html-format-btn" class="btn btn-outline" style="flex: 1; min-width: 120px;">Format HTML</button>
-        </div>
-
-        <div id="html-live-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-            <span>Output:</span>
-            <span id="html-output-status">Ready</span>
-          </div>
-          <pre><code id="html-output" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--text-color);"></code></pre>
-        </div>
-
-        <div id="html-error-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem; border-left: 3px solid var(--error-color);">
-          <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
-            <span>Error:</span>
-            <span id="html-error-status">Fix the input above.</span>
-          </div>
-          <pre><code id="html-error" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--error-color);"></code></pre>
-        </div>
-      </article>
+         <div id="html-error-output" class="code-block" style="margin-top: 1.5rem; display: none; flex-direction: column; gap: 0.5rem; border-left: 3px solid var(--error-color);">
+           <div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.25rem;">
+             <span>Error:</span>
+             <span id="html-error-status">Fix the input above.</span>
+           </div>
+           <pre><code id="html-error" style="font-family: var(--font-mono); font-size: 0.85em; overflow-x: auto; color: var(--error-color);"></code></pre>
+         </div>
+       </article>
 
       <!-- Usage Guide & Step-by-Step -->
       <section class="editorial-content" style="margin-top: 3rem; max-width: 900px;">
